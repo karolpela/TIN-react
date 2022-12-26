@@ -1,20 +1,24 @@
+import { Link } from 'react-router-dom';
+
 function Navigation() {
   return (
     <nav>
       <ul>
         <li>
-          <a href="/">sg</a>
+          <Link to="/">sg</Link>
         </li>
         <li>
-          <a href="/customers">cs</a>
+          <Link to="/customers">cs</Link>
         </li>
         <li>
-          <a href="/rentals">rt</a>
+          <Link to="/rentals">rt</Link>
         </li>
         <li>
-          <a href="/equipment">eq</a>
+          <Link to="/equipment">eq</Link>
         </li>
       </ul>
     </nav>
   );
 }
+
+export default Navigation;
