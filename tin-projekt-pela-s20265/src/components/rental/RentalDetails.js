@@ -1,6 +1,7 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getRentalByIdApiCall } from '../../apiCalls/rentalApiCalls';
 import { getFormattedDate } from '../../helpers/dateHelper';
+import PropTypes from 'prop-types';
 
 function RentalDetails({ match }) {
   const rentalId = parseInt(match.params.rentalId);

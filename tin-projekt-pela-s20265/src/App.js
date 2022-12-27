@@ -7,6 +7,11 @@ import CustomerList from './components/customer/CustomerList';
 import CustomerDetails from './components/customer/CustomerDetails';
 import CustomerForm from './components/customer/CustomerForm';
 import RentalList from './components/rental/RentalList';
+import RentalDetails from './components/rental/RentalDetails';
+import RentalForm from './components/rental/RentalForm';
+import EquipmentList from './components/equipment/EquipmentList';
+import EquipmentDetails from './components/equipment/EquipmentDetails';
+import EquipmentForm from './components/equipment/EquipmentForm';
 
 function App() {
   return (
@@ -23,6 +28,14 @@ function App() {
           <Route exact path="/customers/edit/:custId" element={<CustomerForm />} />
 
           <Route exact path="/rentals" element={<RentalList />}></Route>
+          <Route exact path="/rentals/details/:add" element={<RentalForm />} />
+          <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />}></Route>
+          <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
+
+          <Route exact path="/equipment" element={<EquipmentList />} />
+          <Route exact path="/equipment/add" element={<EquipmentForm />} />
+          <Route exact path="/equipment/details/:eqId" element={<EquipmentDetails />} />
+          <Route exact path="/equipment/edit/:eqId" element={<EquipmentForm />} />
         </Routes>
       </BrowserRouter>
       <Footer />

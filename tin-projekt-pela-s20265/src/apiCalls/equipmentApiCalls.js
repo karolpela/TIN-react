@@ -4,7 +4,7 @@ export function getEquipmentApiCall() {
   return equipmentList;
 }
 
-export function getCustomerByIdApiCall(eqId) {
+export function getEquipmentByIdApiCall(eqId) {
   const eq = equipmentDetailsList.find((eq) => eq._id === eqId);
   return eq;
 }

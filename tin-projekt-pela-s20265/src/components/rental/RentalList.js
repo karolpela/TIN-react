@@ -25,7 +25,7 @@ function RentalList() {
                 {rental.equipment.type} {rental.equipment.purpose} {rental.equipment.size}
               </td>
               <td>
-                <ul>
+                <ul className="list-actions">
                   <li>
                     <Link to={`rental/details/rental._id`} className="list-actions-button-details">
                       dt

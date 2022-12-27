@@ -1,37 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class CustomerForm extends React.Component {
+class EquipmentForm extends React.Component {
   render() {
     return (
       <main>
-        <h2>new emp</h2>
+        <h2>new eq</h2>
         <form className="form">
-          <label htmlFor="firstName">
-            fn:
+          <label htmlFor="type">
+            tp:
             <abbr title="required" aria-label="required"></abbr>
           </label>
           <input type="text" name="" id="" placeholder="" value="" />
-          <span id="errorFirstName" className="errors-text"></span>
+          <span id="errorType" className="errors-text"></span>
 
-          <label htmlFor="lastName">
-            ln:
+          <label htmlFor="purpose">
+            pr:
             <abbr title="required" aria-label="required"></abbr>
           </label>
           <input type="text" name="" id="" placeholder="" value="" />
-          <span id="errorLastName" className="errors-text"></span>
+          <span id="errorPurpose" className="errors-text"></span>
 
-          <label htmlFor="phoneNo">
-            pn:
+          <label htmlFor="size">
+            sz:
             <abbr title="required" aria-label="required"></abbr>
           </label>
-          <input type="text" name="" id="" placeholder="" value="" />
-          <span id="errorPhoneNo" className="errors-text"></span>
+          <input type="number" name="" id="" placeholder="" value="" />
+          <span id="errorSize" className="errors-text"></span>
 
           <div className="formButtons">
             <p id="errorsSummary" className="errors-text">
               <input type="submit" className="form-button-submit" value="add" />
-              <Link to="/customers" className="form-button-cancel">
+              <Link to="/equipments" className="form-button-cancel">
                 cn
               </Link>
             </p>
@@ -42,4 +42,4 @@ class CustomerForm extends React.Component {
   }
 }
 
-export default CustomerForm;
+export default EquipmentForm;
