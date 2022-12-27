@@ -5,33 +5,33 @@ class EquipmentForm extends React.Component {
   render() {
     return (
       <main>
-        <h2>new eq</h2>
+        <h2>new emp</h2>
         <form className="form">
-          <label htmlFor="type">
-            tp:
+          <label htmlFor="firstName">
+            fn:
             <abbr title="required" aria-label="required"></abbr>
           </label>
           <input type="text" name="" id="" placeholder="" value="" />
-          <span id="errorType" className="errors-text"></span>
+          <span id="errorFirstName" className="errors-text"></span>
 
-          <label htmlFor="purpose">
-            pr:
+          <label htmlFor="lastName">
+            ln:
             <abbr title="required" aria-label="required"></abbr>
           </label>
           <input type="text" name="" id="" placeholder="" value="" />
-          <span id="errorPurpose" className="errors-text"></span>
+          <span id="errorLastName" className="errors-text"></span>
 
-          <label htmlFor="size">
-            sz:
+          <label htmlFor="phoneNo">
+            pn:
             <abbr title="required" aria-label="required"></abbr>
           </label>
-          <input type="number" name="" id="" placeholder="" value="" />
-          <span id="errorSize" className="errors-text"></span>
+          <input type="text" name="" id="" placeholder="" value="" />
+          <span id="errorPhoneNo" className="errors-text"></span>
 
           <div className="formButtons">
             <p id="errorsSummary" className="errors-text">
               <input type="submit" className="form-button-submit" value="add" />
-              <Link to="/equipments" className="form-button-cancel">
+              <Link to="/customers" className="form-button-cancel">
                 cn
               </Link>
             </p>

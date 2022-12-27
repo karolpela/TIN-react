@@ -1,46 +1,87 @@
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getCustomerByIdApiCall } from '../../apiCalls/customerApiCalls';
-import { getFormattedDate } from '../../helpers/dateHelper';
+import CustomerDetailsData from './CustomerDetailsData';
 
-function CustomerDetails() {
-  let { custId } = useParams();
-  custId = parseInt(custId);
-  const cust = getCustomerByIdApiCall(custId);
+class CustomerDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      customer: null,
+      error: null,
+      isLoaded: false,
+      message: null
+    };
+  }
 
-  return (
-    <main>
-      <h2>cust det</h2>
-      <p>fn: {cust.firstName}</p>
-      <p>ln: {cust.lastName}</p>
-      <p>pn: {cust.phoneNo}</p>
-      <h2>rent hist</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>eq</th>
-            <th>size</th>
-            <th>from</th>
-            <th>to</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cust.rentals.map((rental) => (
-            <tr key={rental._id}>
-              <td>{rental.equipment.type}</td>
-              <td>{rental.equipment.size}</td>
-              <td>{getFormattedDate(rental.startDate)}</td>
-              <td>{rental.endDate ? getFormattedDate(rental.endDate) : ''}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="sectionButtons">
-        <Link to="/customers" className="button-back">
-          ret
-        </Link>
-      </div>
-    </main>
-  );
+  componentDidMount() {
+    this.fetchCustomerDetails();
+  }
+
+  fetchCustomerDetails = () => {
+    let customerId = parseInt(this.props.match.params.customerId);
+    getCustomerByIdApiCall(customerId)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              customer: null,
+              message: data.message
+            });
+          } else {
+            this.setState({
+              customer: data,
+              message: null
+            });
+          }
+          this.setState({
+            isLoaded: true
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  render() {
+    const { customer, error, isLoaded, message } = this.state;
+    let content;
+
+    if (error) {
+      content = <p>err: {error.message}</p>;
+    } else if (!isLoaded) {
+      content = <p>loading...</p>;
+    } else if (message) {
+      content = <p>{message}</p>;
+    } else {
+      content = <CustomerDetailsData custData={customer} />;
+    }
+
+    return (
+      <main>
+        <h2>cust det</h2>
+        {content}
+        <div className="sectionButtons">
+          <Link to="/customers" className="form-button-back">
+            ret
+          </Link>
+        </div>
+      </main>
+    );
+  }
 }
 
-export default CustomerDetails;
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />;
+  };
+}
+
+export default withRouter(CustomerDetails);

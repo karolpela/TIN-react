@@ -1,38 +1,87 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getRentalByIdApiCall } from '../../apiCalls/rentalApiCalls';
-import { getFormattedDate } from '../../helpers/dateHelper';
-import PropTypes from 'prop-types';
+import RentalDetailsData from './RentalDetailsData';
 
-function RentalDetails({ match }) {
-  const rentalId = parseInt(match.params.rentalId);
-  const rental = getRentalByIdApiCall(rentalId);
-  const rentalStartDate = getFormattedDate(rental.startDate);
-  const rentalEndDate = rental.endDate ? getFormattedDate(rental.endDate) : '';
+class RentalDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rental: null,
+      error: null,
+      isLoaded: false,
+      message: null
+    };
+  }
 
-  return (
-    <main>
-      <h2>rent det</h2>
-      <p>Imię: {rental.customer.firstName}</p>
-      <p>Nazwisko: {rental.customer.firstName}</p>
-      <p>
-        Sprzęt: {rental.equipment.type} {rental.equipment.purpose} {rental.equipment.size}
-      </p>
-      <p>Data wypożyczenia: {rentalStartDate}</p>
-      {rentalEndDate && <p>Data zwrotu: {rentalEndDate}</p>}
-      <div className="section-buttons">
-        <Link to="/rentals" className="button-back">
-          bck
-        </Link>
-      </div>
-    </main>
-  );
+  componentDidMount() {
+    this.fetchRentalDetails();
+  }
+
+  fetchRentalDetails = () => {
+    let rentalId = parseInt(this.props.match.params.rentalId);
+    getRentalByIdApiCall(rentalId)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              rental: null,
+              message: data.message
+            });
+          } else {
+            this.setState({
+              rental: data,
+              message: null
+            });
+          }
+          this.setState({
+            isLoaded: true
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  render() {
+    const { rental, error, isLoaded, message } = this.state;
+    let content;
+
+    if (error) {
+      content = <p>err: {error.message}</p>;
+    } else if (!isLoaded) {
+      content = <p>loading...</p>;
+    } else if (message) {
+      content = <p>{message}</p>;
+    } else {
+      content = <RentalDetailsData custData={rental} />;
+    }
+
+    return (
+      <main>
+        <h2>cust det</h2>
+        {content}
+        <div className="sectionButtons">
+          <Link to="/rentals" className="form-button-back">
+            ret
+          </Link>
+        </div>
+      </main>
+    );
+  }
 }
-RentalDetails.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      rentalId: PropTypes.string
-    })
-  })
-};
 
-export default RentalDetails;
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />;
+  };
+}
+
+export default withRouter(RentalDetails);

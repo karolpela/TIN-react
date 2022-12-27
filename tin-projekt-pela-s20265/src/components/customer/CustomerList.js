@@ -1,50 +1,68 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCustomersApiCall } from '../../apiCalls/customerApiCalls';
+import CustomerListTable from './CustomerListTable';
 
-function CustomerList() {
-  const customerList = getCustomersApiCall();
-  return (
-    <main>
-      <h2>cs list</h2>
-      <table className="table-list">
-        <thead>
-          <tr>
-            <th>fn</th>
-            <th>ln</th>
-            <th>ph</th>
-            <th>ac</th>
-          </tr>
-        </thead>
-        <tbody>
-          {customerList.map((cust) => (
-            <tr key={cust._id}>
-              <td>{cust.firstName}</td>
-              <td>{cust.lastName}</td>
-              <td>{cust.phoneNo}</td>
-              <td>
-                <ul className="list-actions">
-                  <li>
-                    <Link className="list-actions-button-details">dt</Link>
-                  </li>
-                  <li>
-                    <Link className="list-actions-button-edit">ed</Link>
-                  </li>
-                  <li>
-                    <Link className="list-actions-button-delete">del</Link>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p className="section-buttons">
-        <Link to="/customers/add" className="button-add">
-          add
-        </Link>
-      </p>
-    </main>
-  );
+class CustomerList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      customers: []
+    };
+  }
+
+  componentDidMount() {
+    this.fetchCustomerList();
+  }
+
+  fetchCustomerList = () => {
+    getCustomersApiCall()
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          this.setState({
+            isLoaded: true,
+            customers: data
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  render() {
+    const { error, isLoaded, customers } = this.state;
+
+    let content;
+
+    if (error) {
+      content = <p>err: {error.message}</p>;
+    } else if (!isLoaded) {
+      content = <p>loading...</p>;
+    } else if (customers.length === 0) {
+      content = <p>no customers</p>;
+    } else {
+      content = <CustomerListTable customers={customers} />;
+    }
+
+    return (
+      <main>
+        <h2>cs list</h2>
+        {content}
+        <p className="section-buttons">
+          <Link to="/customers/add" className="button-add">
+            add new
+          </Link>
+        </p>
+      </main>
+    );
+  }
 }
 
 export default CustomerList;

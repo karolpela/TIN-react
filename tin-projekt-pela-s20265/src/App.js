@@ -24,18 +24,18 @@ function App() {
 
           <Route exact path="/customers" element={<CustomerList />} />
           <Route exact path="/customers/add" element={<CustomerForm />} />
-          <Route exact path="/customers/details/:custId" element={<CustomerDetails />} />
-          <Route exact path="/customers/edit/:custId" element={<CustomerForm />} />
+          <Route exact path="/customers/details/:customerId" element={<CustomerDetails />} />
+          <Route exact path="/customers/edit/:customerId" element={<CustomerForm />} />
 
           <Route exact path="/rentals" element={<RentalList />}></Route>
-          <Route exact path="/rentals/details/:add" element={<RentalForm />} />
+          <Route exact path="/rentals/add" element={<RentalForm />} />
           <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />}></Route>
           <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
 
           <Route exact path="/equipment" element={<EquipmentList />} />
           <Route exact path="/equipment/add" element={<EquipmentForm />} />
-          <Route exact path="/equipment/details/:eqId" element={<EquipmentDetails />} />
-          <Route exact path="/equipment/edit/:eqId" element={<EquipmentForm />} />
+          <Route exact path="/equipment/details/:equipmentId" element={<EquipmentDetails />} />
+          <Route exact path="/equipment/edit/:equipmentId" element={<EquipmentForm />} />
         </Routes>
       </BrowserRouter>
       <Footer />

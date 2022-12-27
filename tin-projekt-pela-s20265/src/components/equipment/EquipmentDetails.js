@@ -1,44 +1,87 @@
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getEquipmentByIdApiCall } from '../../apiCalls/equipmentApiCalls';
-import { getFormattedDate } from '../../helpers/dateHelper';
+import EquipmentDetailsData from './EquipmentDetailsData';
 
-function EquipmentDetails() {
-  let { eqId } = useParams();
-  eqId = parseInt(eqId);
-  const eq = getEquipmentByIdApiCall(eqId);
+class EquipmentDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      equipment: null,
+      error: null,
+      isLoaded: false,
+      message: null
+    };
+  }
 
-  return (
-    <main>
-      <h2>eq det</h2>
-      <p>tp: {eq.type}</p>
-      <p>pr: {eq.purpose}</p>
-      <p>sz: {eq.size}</p>
-      <h2>rent hist</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>cs</th>
-            <th>from</th>
-            <th>to</th>
-          </tr>
-        </thead>
-        <tbody>
-          {eq.rentals.map((rental) => (
-            <tr key={rental._id}>
-              <td>{rental.customer.firstName + ' ' + rental.customer.lastName}</td>
-              <td>{getFormattedDate(rental.startDate)}</td>
-              <td>{rental.endDate ? getFormattedDate(rental.endDate) : ''}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="sectionButtons">
-        <Link to="/equipment" className="button-back">
-          ret
-        </Link>
-      </div>
-    </main>
-  );
+  componentDidMount() {
+    this.fetchEquipmentDetails();
+  }
+
+  fetchEquipmentDetails = () => {
+    let equipmentId = parseInt(this.props.match.params.equipmentId);
+    getEquipmentByIdApiCall(equipmentId)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              equipment: null,
+              message: data.message
+            });
+          } else {
+            this.setState({
+              equipment: data,
+              message: null
+            });
+          }
+          this.setState({
+            isLoaded: true
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  render() {
+    const { equipment, error, isLoaded, message } = this.state;
+    let content;
+
+    if (error) {
+      content = <p>err: {error.message}</p>;
+    } else if (!isLoaded) {
+      content = <p>loading...</p>;
+    } else if (message) {
+      content = <p>{message}</p>;
+    } else {
+      content = <EquipmentDetailsData equipmentData={equipment} />;
+    }
+
+    return (
+      <main>
+        <h2>eq det</h2>
+        {content}
+        <div className="sectionButtons">
+          <Link to="/equipment" className="form-button-back">
+            ret
+          </Link>
+        </div>
+      </main>
+    );
+  }
 }
 
-export default EquipmentDetails;
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />;
+  };
+}
+
+export default withRouter(EquipmentDetails);

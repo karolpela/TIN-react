@@ -1,10 +1,12 @@
-import { customerList, customerDetailsList } from './customerApiMockData';
+const customersBaseUrl = 'http://localhost:3000/api/customers';
 
 export function getCustomersApiCall() {
-  return customerList;
+  const promise = fetch(customersBaseUrl);
+  return promise;
 }
 
-export function getCustomerByIdApiCall(custId) {
-  const customer = customerDetailsList.find((cust) => cust._id === custId);
-  return customer;
+export function getCustomerByIdApiCall(customerId) {
+  const url = `${customersBaseUrl}/${customerId}`;
+  const promise = fetch(url);
+  return promise;
 }

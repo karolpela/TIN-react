@@ -18,13 +18,13 @@ class RentalForm extends React.Component {
               *
             </abbr>
           </label>
-          <select id="customer" name="custId" required>
+          <select id="customer" name="customerId" required>
             <option value="">-- sel emp---</option>
-            {allCustomers.map((cust) => (
+            {allCustomers.map((customer) => (
               <option
-                key={cust._id}
-                value={cust._id}
-                label={cust.firstName + ' ' + cust.lastName}
+                key={customer._id}
+                value={customer._id}
+                label={customer.firstName + ' ' + customer.lastName}
               ></option>
             ))}
             <span id="errorCustomer" className="errors-text"></span>
@@ -35,7 +35,7 @@ class RentalForm extends React.Component {
               *
             </abbr>
           </label>
-          <select id="equipment" name="eqId" required>
+          <select id="equipment" name="equipmentId" required>
             <option value="">-- sel eq---</option>
             {allEquipment.map((eq) => (
               <option

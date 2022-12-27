@@ -1,10 +1,12 @@
-import { equipmentList, equipmentDetailsList } from './equipmentApiMockData';
+const equipmentBaseUrl = 'http://localhost:3000/api/equipment';
 
 export function getEquipmentApiCall() {
-  return equipmentList;
+  const promise = fetch(equipmentBaseUrl);
+  return promise;
 }
 
-export function getEquipmentByIdApiCall(eqId) {
-  const eq = equipmentDetailsList.find((eq) => eq._id === eqId);
-  return eq;
+export function getEquipmentByIdApiCall(equipmentId) {
+  const url = `${equipmentBaseUrl}/${equipmentId}`;
+  const promise = fetch(url);
+  return promise;
 }

@@ -1,59 +1,67 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { getRentalsApiCall } from '../../apiCalls/rentalApiCalls';
+import RentalListTable from './RentalListTable';
 
-function RentalList() {
-  const rentalList = getRentalsApiCall();
+class RentalList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      rentals: []
+    };
+  }
 
-  return (
-    <main>
-      <h2>rent lst</h2>
-      <table className="table-list">
-        <thead>
-          <tr>
-            <th>fn</th>
-            <th>ln</th>
-            <th>eq</th>
-            <th>ac</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rentalList.map((rental) => (
-            <tr key="{rental._id}">
-              <td>{rental.customer.firstName}</td>
-              <td>{rental.customer.lastName}</td>
-              <td>
-                {rental.equipment.type} {rental.equipment.purpose} {rental.equipment.size}
-              </td>
-              <td>
-                <ul className="list-actions">
-                  <li>
-                    <Link to={`rental/details/rental._id`} className="list-actions-button-details">
-                      dt
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={`rental/edit/rental._id`} className="list-actions-button-edit">
-                      ed
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={`rental/delete/rental._id`} className="list-actions-button-delete">
-                      del
-                    </Link>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p className="section-buttons">
-        <Link to="/rental/add" className="button-add">
-          add new
-        </Link>
-      </p>
-    </main>
-  );
+  componentDidMount() {
+    this.fetchRentalList();
+  }
+
+  fetchRentalList = () => {
+    getRentalsApiCall()
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          this.setState({
+            isLoaded: true,
+            rentals: data
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  render() {
+    const { error, isLoaded, rentals } = this.state;
+    let content;
+
+    if (error) {
+      content = <p>err: {error.message}</p>;
+    } else if (!isLoaded) {
+      content = <p>loading rentals</p>;
+    } else if (rentals.length === 0) {
+      content = <p>no rentals</p>;
+    } else {
+      content = <RentalListTable rentals={rentals} />;
+    }
+
+    return (
+      <main>
+        <h2>rent list</h2>
+        {content}
+        <p className="section-buttons">
+          <Link to="/rentals/add" className="button-add">
+            add new
+          </Link>
+        </p>
+      </main>
+    );
+  }
 }
 
 export default RentalList;
