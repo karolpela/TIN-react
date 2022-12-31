@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { getCustomersApiCall } from '../../apiCalls/customerApiCalls';
 import CustomerListTable from './CustomerListTable';
 
 class CustomerList extends React.Component {
   constructor(props) {
     super(props);
+    let notice = this.props.location.state?.notice;
     this.state = {
       error: null,
       isLoaded: false,
-      customers: []
+      customers: [],
+      notice: notice
     };
   }
 
@@ -39,7 +41,7 @@ class CustomerList extends React.Component {
   render() {
     const { error, isLoaded, customers } = this.state;
 
-    let content;
+    let content = '';
 
     if (error) {
       content = <p>err: {error.message}</p>;
@@ -54,6 +56,7 @@ class CustomerList extends React.Component {
     return (
       <main>
         <h2>cs list</h2>
+        <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
         {content}
         <p className="section-buttons">
           <Link to="/customers/add" className="button-add">
@@ -65,4 +68,13 @@ class CustomerList extends React.Component {
   }
 }
 
-export default CustomerList;
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() };
+    const location = useLocation();
+    return <Children {...props} match={match} location={location} />;
+  };
+}
+
+export default withRouter(CustomerList);

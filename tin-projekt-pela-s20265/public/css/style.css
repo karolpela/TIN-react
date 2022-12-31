@@ -126,7 +126,8 @@ main h2 {
 .form-button-submit,
 .form-button-cancel,
 .form-button-edit,
-.form-button-back {
+.form-button-back,
+.success {
   border: none;
   border-radius: 5px;
   color: white;
@@ -281,6 +282,13 @@ textarea {
 
 .material-symbols-outlined {
   display: none;
+}
+
+.success {
+  color: black;
+  border: 2px solid;
+  border-color: #27ae60;
+  padding: 15px;
 }
 
 /* Media queries */
