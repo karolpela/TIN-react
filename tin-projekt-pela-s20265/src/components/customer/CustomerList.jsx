@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { getCustomersApiCall } from '../../apiCalls/customerApiCalls';
 import CustomerListTable from './CustomerListTable';
+import { withTranslation } from 'react-i18next';
 
 class CustomerList extends React.Component {
   constructor(props) {
@@ -39,28 +40,33 @@ class CustomerList extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const { error, isLoaded, customers } = this.state;
 
     let content = '';
 
     if (error) {
-      content = <p>err: {error.message}</p>;
+      content = (
+        <p>
+          {t('common.error')}: {error.message}
+        </p>
+      );
     } else if (!isLoaded) {
-      content = <p>loading...</p>;
+      content = <p>{t('common.loading')}</p>;
     } else if (customers.length === 0) {
-      content = <p>no customers</p>;
+      content = <p>tr</p>;
     } else {
       content = <CustomerListTable customers={customers} />;
     }
 
     return (
       <main>
-        <h2>cs list</h2>
+        <h2>{t('customer.list.pageTitle')}</h2>
         <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
         {content}
         <p className="section-buttons">
           <Link to="/customers/add" className="button-add">
-            add new
+            {t('customer.list.addNew')}
           </Link>
         </p>
       </main>
@@ -77,4 +83,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withRouter(CustomerList);
+export default withTranslation()(withRouter(CustomerList));

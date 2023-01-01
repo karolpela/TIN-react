@@ -27,9 +27,9 @@ function App() {
           <Route exact path="/customers/details/:customerId" element={<CustomerDetails />} />
           <Route exact path="/customers/edit/:customerId" element={<CustomerForm />} />
 
-          <Route exact path="/rentals" element={<RentalList />}></Route>
+          <Route exact path="/rentals" element={<RentalList />} />
           <Route exact path="/rentals/add" element={<RentalForm />} />
-          <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />}></Route>
+          <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />} />
           <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
 
           <Route exact path="/equipment" element={<EquipmentList />} />

@@ -1,0 +1,146 @@
+{
+    "title": "Rental shop",
+    "main-page": {
+        "content": "Main page",
+        "description": "Rental shop management application"
+    },
+    "nav": {
+        "main-page": "Main page",
+        "customers": "Customers",
+        "equipment": "Equipment",
+        "rentals": "Rentals",
+        "logging": "Login",
+        "logIn": "Log in",
+        "logOut": "Log out",
+        "loggedAs": "Logged in as"
+    },
+    "list": {
+        "actions": {
+            "title": "Actions",
+            "details": "Details",
+            "edit": "Edit",
+            "delete": "Delete"
+        }
+    },
+    "form": {
+        "actions": {
+            "return": "Return",
+            "edit": "Edit",
+            "cancel": "Cancel"
+        }
+    },
+    "customer": {
+        "fields": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "phoneNo": "Phone number",
+            "password": "Password"
+        },
+        "list": {
+            "title": "Customers",
+            "addNew": "Add new customer",
+            "noData": "No clients in database",
+            "pageTitle": "Customer list"
+        },
+        "form": {
+            "rentals": "Rental history",
+            "add": {
+                "pageTitle": "Adding new customer",
+                "btnLabel": "Add customer",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Customer added successfully"
+                }
+            },
+            "edit": {
+                "pageTitle": "Editing customer",
+                "btnLabel": "Save changes",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Customer updated successfully"
+                }
+            },
+            "details": {
+                "pageTitle": "Customer details"
+            }
+        }
+    },
+    "equipment": {
+        "fields": {
+            "type": "Type",
+            "size": "Size",
+            "purpose": "Purpose"
+        },
+        "list": {
+            "title": "Equipment",
+            "addNew": "Add new equipment",
+            "noData": "No equipment in database",
+            "pageTitle": "Equipment list"
+        },
+        "form": {
+            "rentals": "Rental history",
+            "add": {
+                "pageTitle": "Add new equipment",
+                "btnLabel": "Add equipment",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Equipment added successfully"
+                }
+            },
+            "edit": {
+                "pageTitle": "Editing equipment",
+                "btnLabel": "Save changes",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Equipment updated successfully"
+                }
+            },
+            "details": {
+                "pageTitle": "Equipment details"
+            }
+        }
+    },
+    "rentals": {
+        "fields": {
+            "customer": "Customer",
+            "equipment": "Equipment",
+            "startDate": "Rental date",
+            "endDate": "Return date",
+            "dropdown": {
+                "chooseClient": "Choose customer",
+                "chooseEquipment": "Choose equipment"
+            }
+        },
+        "list": {
+            "title": "Rentals",
+            "addNew": "Add new rental",
+            "noData": "No rentals in database",
+            "pageTitle": "Rental list"
+        },
+        "form": {
+            "add": {
+                "pageTitle": "Adding new rental",
+                "btnLabel": "Add rental",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Rental added successfully"
+                }
+            },
+            "edit": {
+                "pageTitle": "Editing rental",
+                "btnLabel": "Save changes",
+                "confirm": {
+                    "header": "Confirmation",
+                    "text": "Rental updated successfully"
+                }
+            },
+            "details": {
+                "pageTitle": "Rental details"
+            }
+        }
+    },
+    "validationMessage": {
+        "fieldRequired": "Field is required"
+    },
+    "id": "Id"
+}

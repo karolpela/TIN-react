@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router-dom';
 import {
   getCustomerByIdApiCall,
@@ -192,17 +193,24 @@ class CustomerForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const { redirect } = this.state;
     if (redirect) {
       const currentFormMode = this.state.formMode;
-      const notice = currentFormMode === formMode.NEW ? 'added' : 'updated';
+      const notice =
+        currentFormMode === formMode.NEW
+          ? t('customer.form.add.confirm.text')
+          : t('customer.form.edit.confirm.text');
 
       return <Navigate to="/customers" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? 'has errors' : '';
-    const fetchError = this.state.error ? 'fetch error' : '';
-    const pageTitle = this.state.formMode === formMode.NEW ? 'new cust' : 'edit cust';
+    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const fetchError = this.state.error ? t('form.messages.fetchError') : '';
+    const pageTitle =
+      this.state.formMode === formMode.NEW
+        ? t('customer.form.add.pageTitle')
+        : t('customer.form.add.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 
@@ -212,7 +220,7 @@ class CustomerForm extends React.Component {
         <form className="form" onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
-            label="fn"
+            label={t('customer.fields.firstName')}
             required
             error={this.state.errors.firstName}
             name="firstName"
@@ -222,7 +230,7 @@ class CustomerForm extends React.Component {
           />
           <FormInput
             type="text"
-            label="ln"
+            label={t('customer.fields.lastName')}
             required
             error={this.state.errors.lastName}
             name="lastName"
@@ -232,7 +240,7 @@ class CustomerForm extends React.Component {
           />
           <FormInput
             type="text"
-            label="pn"
+            label={t('customer.fields.phoneNo')}
             required
             error={this.state.errors.phoneNo}
             name="phoneNo"
@@ -242,6 +250,7 @@ class CustomerForm extends React.Component {
           />
           <FormButtons
             formMode={this.state.formMode}
+            formType="customer"
             error={globalErrorMessage}
             cancelPath="/customers"
           />
@@ -259,4 +268,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withRouter(CustomerForm);
+export default withTranslation()(withRouter(CustomerForm));

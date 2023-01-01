@@ -1,23 +1,31 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { getFormattedDate } from '../../helpers/dateHelper';
 
 function CustomerDetailsData(props) {
+  const { t } = useTranslation();
   const customer = props.custData;
 
   if (customer.rentals.length !== 0) {
     return (
       <React.Fragment>
-        <p>fn: {customer.firstName}</p>
-        <p>ln: {customer.lastName}</p>
-        <p>pn: {customer.phoneNo}</p>
-        <h2>rent hist</h2>
+        <p>
+          {t('customer.fields.firstName')}: {customer.firstName}
+        </p>
+        <p>
+          {t('customer.fields.lastName')}: {customer.lastName}
+        </p>
+        <p>
+          {t('customer.fields.phoneNo')}: {customer.phoneNo}
+        </p>
+        <h2>{t('customer.form.rentals')}</h2>
         <table className="table-list">
           <thead>
             <tr>
-              <th>eq</th>
-              <th>size</th>
-              <th>from</th>
-              <th>to</th>
+              <th>{t('rental.fields.equipment')}</th>
+              <th>{t('equipment.fields.size')}</th>
+              <th>{t('rental.fields.startDate')}</th>
+              <th>{t('rental.fields.endDate')}</th>
             </tr>
           </thead>
           <tbody>
@@ -36,10 +44,16 @@ function CustomerDetailsData(props) {
   } else {
     return (
       <React.Fragment>
-        <p>fn: {customer.firstName}</p>
-        <p>ln: {customer.lastName}</p>
-        <p>pn: {customer.phoneNo}</p>
-        <h3>no rentals</h3>
+        <p>
+          {t('customer.fields.firstName')}: {customer.firstName}
+        </p>
+        <p>
+          {t('customer.fields.lastName')}: {customer.lastName}
+        </p>
+        <p>
+          {t('customer.fields.phoneNo')}: {customer.phoneNo}
+        </p>
+        <h3>{t('rental.list.noData')}</h3>
       </React.Fragment>
     );
   }

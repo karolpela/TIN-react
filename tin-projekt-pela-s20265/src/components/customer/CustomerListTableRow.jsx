@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function CustomerListTableRow(props) {
+  const { t } = useTranslation();
   const customer = props.customerData;
   return (
     <tr>
@@ -11,18 +13,17 @@ function CustomerListTableRow(props) {
         <ul className="list-actions">
           <li>
             <Link to={`/customers/details/${customer._id}`} className="list-actions-button-details">
-              {' '}
-              dt
+              {t('list.actions.details')} <span className="material-symbols-outlined">info</span>
             </Link>
           </li>
           <li>
             <Link to={`/customers/edit/${customer._id}`} className="list-actions-button-edit">
-              ed
+              {t('list.actions.edit')} <span className="material-symbols-outlined">edit</span>
             </Link>
           </li>
           <li>
             <Link to={`/customers/delete/${customer._id}`} className="list-actions-button-delete">
-              del
+              {t('list.actions.delete')} <span className="material-symbols-outlined">delete</span>
             </Link>
           </li>
         </ul>

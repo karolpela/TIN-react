@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router-dom';
 import {
   getEquipmentByIdApiCall,
@@ -192,17 +193,24 @@ class EquipmentForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const { redirect } = this.state;
     if (redirect) {
       const currentFormMode = this.state.formMode;
-      const notice = currentFormMode === formMode.NEW ? 'added' : 'updated';
+      const notice =
+        currentFormMode === formMode.NEW
+          ? t('equipment.form.add.confirm.text')
+          : t('equipment.form.edit.confirm.text');
 
       return <Navigate to="/equipment" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? 'has errors' : '';
-    const fetchError = this.state.error ? 'fetch error' : '';
-    const pageTitle = this.state.formMode === formMode.NEW ? 'new cust' : 'edit cust';
+    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const fetchError = this.state.error ? t('form.messages.fetchError') : '';
+    const pageTitle =
+      this.state.formMode === formMode.NEW
+        ? t('equipment.form.add.pageTitle')
+        : t('equipment.form.edit.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 
@@ -212,7 +220,7 @@ class EquipmentForm extends React.Component {
         <form className="form" onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
-            label="tp"
+            label={t('equipment.fields.type')}
             required
             error={this.state.errors.type}
             name="type"
@@ -222,7 +230,7 @@ class EquipmentForm extends React.Component {
           />
           <FormInput
             type="text"
-            label="pr"
+            label={t('equipment.fields.purpose')}
             required
             error={this.state.errors.purpose}
             name="purpose"
@@ -232,7 +240,7 @@ class EquipmentForm extends React.Component {
           />
           <FormInput
             type="text"
-            label="sz"
+            label={t('equipment.fields.size')}
             required
             error={this.state.errors.size}
             name="size"
@@ -242,6 +250,7 @@ class EquipmentForm extends React.Component {
           />
           <FormButtons
             formMode={this.state.formMode}
+            formType="equipment"
             error={globalErrorMessage}
             cancelPath="/equipment"
           />
@@ -259,4 +268,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withRouter(EquipmentForm);
+export default withTranslation()(withRouter(EquipmentForm));

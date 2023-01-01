@@ -1,23 +1,31 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { getFormattedDate } from '../../helpers/dateHelper';
 
 function EquipmentDetailsData(props) {
+  const { t } = useTranslation();
   const equipment = props.equipmentData;
 
   if (equipment.rentals.length !== 0) {
     return (
       <React.Fragment>
-        <p>tp: {equipment.type}</p>
-        <p>pr: {equipment.purpose}</p>
-        <p>sz:{equipment.size}</p>
-        <h2>rent hist</h2>
+        <p>
+          {t('equipment.fields.type')}: {equipment.type}
+        </p>
+        <p>
+          {t('equipment.fields.purpose')}: {equipment.purpose}
+        </p>
+        <p>
+          {t('equipment.fields.size')}:{equipment.size}
+        </p>
+        <h2>{t('equipment.form.rentals')}</h2>
         <table className="table-list">
           <thead>
             <tr>
-              <th>fn</th>
-              <th>ln</th>
-              <th>startdate</th>
-              <th>enddate</th>
+              <th>{t('customer.fields.firstName')}</th>
+              <th>{t('customer.fields.lastName')}</th>
+              <th>{t('rental.fields.startDate')}</th>
+              <th>{t('rental.fields.endDate')}</th>
             </tr>
           </thead>
           <tbody>
@@ -36,10 +44,16 @@ function EquipmentDetailsData(props) {
   } else {
     return (
       <React.Fragment>
-        <p>tp: {equipment.type}</p>
-        <p>pr: {equipment.purpose}</p>
-        <p>sz:{equipment.size}</p>
-        <h3>no rentals</h3>
+        <p>
+          {t('equipment.fields.type')}: {equipment.type}
+        </p>
+        <p>
+          {t('equipment.fields.purpose')}: {equipment.purpose}
+        </p>
+        <p>
+          {t('equipment.fields.size')}: {equipment.size}
+        </p>
+        <h3>{t('rental.list.noData')}</h3>
       </React.Fragment>
     );
   }

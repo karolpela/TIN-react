@@ -18,6 +18,7 @@ import FormButtons from '../form/FormButtons';
 import FormInput from '../form/FormInput';
 import FormSelect from '../form/FormSelect';
 import { getFormattedDate } from '../../helpers/dateHelper';
+import { withTranslation } from 'react-i18next';
 
 class RentalForm extends React.Component {
   constructor(props) {
@@ -270,17 +271,24 @@ class RentalForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const { redirect } = this.state;
     if (redirect) {
       const currentFormMode = this.state.formMode;
-      const notice = currentFormMode === formMode.NEW ? 'added' : 'updated';
+      const notice =
+        currentFormMode === formMode.NEW
+          ? t('rental.form.add.confirm.text')
+          : t('rental.form.edit.confirm.text');
 
       return <Navigate to="/rentals" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? 'has errors' : '';
-    const fetchError = this.state.error ? 'fetch error' : '';
-    const pageTitle = this.state.formMode === formMode.NEW ? 'new cust' : 'edit cust';
+    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const fetchError = this.state.error ? t('form.messages.fetchError') : '';
+    const pageTitle =
+      this.state.formMode === formMode.NEW
+        ? t('rental.form.add.pageTitle')
+        : t('rental.form.edit.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 
@@ -289,7 +297,7 @@ class RentalForm extends React.Component {
         <h2>{pageTitle}</h2>
         <form className="form" onSubmit={this.handleSubmit}>
           <FormSelect
-            label="cs"
+            label={t('rental.fields.customer')}
             options={this.state.allCustomers}
             display={['firstName', 'lastName']}
             required
@@ -299,7 +307,7 @@ class RentalForm extends React.Component {
             value={this.state.rental.customerId ?? ''}
           />
           <FormSelect
-            label="eq"
+            label={t('rental.fields.equipment')}
             options={this.state.allEquipment}
             display={['type', 'purpose', 'size']}
             required
@@ -310,7 +318,7 @@ class RentalForm extends React.Component {
           />
           <FormInput
             type="date"
-            label="startDate"
+            label={t('rental.fields.startDate')}
             required
             error={this.state.errors.startDate}
             name="startDate"
@@ -319,7 +327,7 @@ class RentalForm extends React.Component {
           />
           <FormInput
             type="date"
-            label="endDate"
+            label={t('rental.fields.endDate')}
             error={this.state.errors.endDate}
             name="endDate"
             onChange={this.handleChange}
@@ -327,6 +335,7 @@ class RentalForm extends React.Component {
           />
           <FormButtons
             formMode={this.state.formMode}
+            formType="rental"
             error={globalErrorMessage}
             cancelPath="/rentals"
           />
@@ -344,4 +353,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withRouter(RentalForm);
+export default withTranslation()(withRouter(RentalForm));

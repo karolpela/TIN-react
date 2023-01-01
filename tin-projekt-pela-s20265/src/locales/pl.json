@@ -1,0 +1,154 @@
+{
+  "common": {
+    "error": "Błąd",
+    "loading": "Ładowanie"
+  },
+  "title": "Wypożyczalnia sprzętu sportowego",
+  "main-page": {
+    "content": "Strona główna",
+    "description": "Aplikacja zarządzająca systemem wypożyczalni sprzętu sportowego"
+  },
+  "nav": {
+    "main-page": "Strona główna",
+    "customers": "Klienci",
+    "equipment": "Sprzęt",
+    "rentals": "Wypożyczenia",
+    "logging": "Logowanie",
+    "logIn": "Zaloguj się",
+    "logOut": "Wyloguj się",
+    "loggedAs": "Zalogowano jako"
+  },
+  "list": {
+    "actions": {
+      "title": "Akcje",
+      "details": "Szczegóły",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    }
+  },
+  "form": {
+    "actions": {
+      "return": "Powrót",
+      "edit": "Edytuj",
+      "cancel": "Anuluj"
+    },
+    "messages": {
+      "hasErrors": "Formularz zawiera błędy",
+      "fetchError": "Błąd komunikacji"
+    }
+  },
+  "customer": {
+    "fields": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "phoneNo": "Numer telefonu",
+      "password": "Hasło"
+    },
+    "list": {
+      "title": "Klienci",
+      "addNew": "Dodaj nowego klienta",
+      "noData": "Brak klientów w bazie",
+      "pageTitle": "Lista klientów"
+    },
+    "form": {
+      "rentals": "Historia wypożyczeń",
+      "add": {
+        "pageTitle": "Dodawanie klienta",
+        "btnLabel": "Dodaj klienta",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano klienta"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja klienta",
+        "btnLabel": "Zapisz zmiany",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano klienta"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły klienta"
+      }
+    }
+  },
+  "equipment": {
+    "fields": {
+      "type": "Typ",
+      "size": "Rozmiar",
+      "purpose": "Przeznaczenie"
+    },
+    "list": {
+      "title": "Sprzęt",
+      "addNew": "Dodaj nowy sprzęt",
+      "noData": "Brak sprzętów w bazie",
+      "pageTitle": "Lista sprzętów"
+    },
+    "form": {
+      "rentals": "Historia wypożyczeń",
+      "add": {
+        "pageTitle": "Dodawanie sprzętu",
+        "btnLabel": "Dodaj sprzęt",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano sprzęt"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja sprzętu",
+        "btnLabel": "Zapisz zmiany",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano sprzęt"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły sprzętu"
+      }
+    }
+  },
+  "rental": {
+    "fields": {
+      "customer": "Klient",
+      "equipment": "Sprzęt",
+      "startDate": "Data wypożyczenia",
+      "endDate": "Data zwrotu",
+      "dropdown": {
+        "chooseClient": "Wybierz klienta",
+        "chooseEquipment": "Wybierz sprzęt"
+      }
+    },
+    "list": {
+      "title": "Wypożyczenia",
+      "addNew": "Dodaj nowe wypożyczenie",
+      "noData": "Brak wypożyczeń w bazie",
+      "pageTitle": "Lista wypożyczeń"
+    },
+    "form": {
+      "add": {
+        "pageTitle": "Dodawanie wypożyczenia",
+        "btnLabel": "Dodaj wypożyczenie",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano wypożyczenie"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja wypożyczenia",
+        "btnLabel": "Zapisz zmiany",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano wypożyczenie"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły wypożyczenia"
+      }
+    }
+  },
+  "validationMessage": {
+    "fieldRequired": "Pole jest wymagane"
+  },
+  "id": "Id"
+}

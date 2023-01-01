@@ -1,13 +1,14 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
-import { getCustomerByIdApiCall } from '../../apiCalls/customerApiCalls';
-import CustomerDetailsData from './CustomerDetailsData';
+import { getEquipmentByIdApiCall } from '../../apiCalls/equipmentApiCalls';
+import EquipmentDetailsData from './EquipmentDetailsData';
 
-class CustomerDetails extends React.Component {
+class EquipmentDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      customer: null,
+      equipment: null,
       error: null,
       isLoaded: false,
       message: null
@@ -15,23 +16,23 @@ class CustomerDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchCustomerDetails();
+    this.fetchEquipmentDetails();
   }
 
-  fetchCustomerDetails = () => {
-    let customerId = parseInt(this.props.match.params.customerId);
-    getCustomerByIdApiCall(customerId)
+  fetchEquipmentDetails = () => {
+    let equipmentId = parseInt(this.props.match.params.equipmentId);
+    getEquipmentByIdApiCall(equipmentId)
       .then((res) => res.json())
       .then(
         (data) => {
           if (data.message) {
             this.setState({
-              customer: null,
+              equipment: null,
               message: data.message
             });
           } else {
             this.setState({
-              customer: data,
+              equipment: data,
               message: null
             });
           }
@@ -49,25 +50,30 @@ class CustomerDetails extends React.Component {
   };
 
   render() {
-    const { customer, error, isLoaded, message } = this.state;
+    const { t } = this.props;
+    const { equipment, error, isLoaded, message } = this.state;
     let content;
 
     if (error) {
-      content = <p>err: {error.message}</p>;
+      content = (
+        <p>
+          {t('common.error')}: {error.message}
+        </p>
+      );
     } else if (!isLoaded) {
-      content = <p>loading...</p>;
+      content = <p>{t('common.loading')}:</p>;
     } else if (message) {
       content = <p>{message}</p>;
     } else {
-      content = <CustomerDetailsData custData={customer} />;
+      content = <EquipmentDetailsData equipmentData={equipment} />;
     }
 
     return (
       <main>
-        <h2>cust det</h2>
+        <h2>{t('equipment.form.details.pageTitle')}</h2>
         {content}
         <div className="sectionButtons">
-          <Link to="/customers" className="form-button-back">
+          <Link to="/equipment" className="form-button-back">
             ret
           </Link>
         </div>
@@ -84,4 +90,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withRouter(CustomerDetails);
+export default withTranslation()(withRouter(EquipmentDetails));

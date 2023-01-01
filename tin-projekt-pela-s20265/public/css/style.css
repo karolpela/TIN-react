@@ -280,7 +280,7 @@ textarea {
   color: #e74c3c;
 }
 
-.material-symbols-outlined {
+span.material-symbols-outlined {
   display: none;
 }
 
@@ -353,12 +353,12 @@ textarea {
     margin: 4px;
   }
 
-  .material-symbols-outlined {
+  span.material-symbols-outlined {
     display: unset;
   }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 520px) {
   body,
   nav,
   nav ul,

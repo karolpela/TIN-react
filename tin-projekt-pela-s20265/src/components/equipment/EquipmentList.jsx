@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { getEquipmentApiCall } from '../../apiCalls/equipmentApiCalls';
 import EquipmentListTable from './EquipmentListTable';
+import { withTranslation } from 'react-i18next';
 
 class EquipmentList extends React.Component {
   constructor(props) {
     super(props);
+    let notice = this.props.location.state?.notice;
     this.state = {
       error: null,
       isLoaded: false,
-      equipment: []
+      equipment: [],
+      notice: notice
     };
   }
 
@@ -37,27 +40,33 @@ class EquipmentList extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const { error, isLoaded, equipment } = this.state;
 
     let content;
 
     if (error) {
-      content = <p>err: {error.message}</p>;
+      content = (
+        <p>
+          {t('common.error')}: {error.message}
+        </p>
+      );
     } else if (!isLoaded) {
-      content = <p>loading...</p>;
+      content = <p>{t('common.loading')}</p>;
     } else if (equipment.length === 0) {
-      content = <p>no equipment</p>;
+      content = <p>{t('equipment.list.noData')}</p>;
     } else {
       content = <EquipmentListTable equipment={equipment} />;
     }
 
     return (
       <main>
-        <h2>eq list</h2>
+        <h2>{t('equipment.list.pageTitle')}</h2>
+        <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
         {content}
         <p className="section-buttons">
           <Link to="/equipment/add" className="button-add">
-            add new
+            {t('equipment.list.addNew')}
           </Link>
         </p>
       </main>
@@ -65,4 +74,13 @@ class EquipmentList extends React.Component {
   }
 }
 
-export default EquipmentList;
+export function withRouter(Children) {
+  // eslint-disable-next-line react/display-name
+  return (props) => {
+    const match = { params: useParams() };
+    const location = useLocation();
+    return <Children {...props} match={match} location={location} />;
+  };
+}
+
+export default withTranslation()(withRouter(EquipmentList));
