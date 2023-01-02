@@ -3,4 +3,22 @@ const formMode = {
   EDIT: 'EDIT'
 };
 
+export const formValidationKeys = {
+  notEmpty: 'notEmpty',
+  len_2_12: 'len_2_12',
+  len_2_20: 'len_2_20',
+  len_2_40: 'len_2_40',
+  isPhoneNo: 'isPhoneNo',
+  isShoeSize: 'isShoeSize',
+  isInteger: 'isInteger',
+  isDate: 'isDate',
+  notInFuture: 'notInFuture',
+  afterOrEqualToStartDate: 'afterOrEqualToStartDate'
+};
+
+export function getValidationErrorKey(error) {
+  if (error === '') return '';
+  return `form.validation.messages.${error}`;
+}
+
 export default formMode;

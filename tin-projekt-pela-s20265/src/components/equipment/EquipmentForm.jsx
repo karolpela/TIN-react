@@ -6,7 +6,7 @@ import {
   addEquipmentApiCall,
   updateEquipmentApiCall
 } from '../../apiCalls/equipmentApiCalls';
-import formMode from '../../helpers/formHelper';
+import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import { checkRequired, checkTextLengthRange, checkShoeSize } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
 import FormInput from '../form/FormInput';
@@ -140,25 +140,25 @@ class EquipmentForm extends React.Component {
 
     if (fieldName === 'type') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkTextLengthRange(fieldValue, 2, 12)) {
-        errorMessage = 'Pole powinno zawierać od 2 do 12 znaków';
+        errorMessage = formValidationKeys.len_2_12;
       }
     }
 
     if (fieldName === 'purpose') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkTextLengthRange(fieldValue, 2, 20)) {
-        errorMessage = 'Pole powinno zawierać od 2 do 20 znaków';
+        errorMessage = formValidationKeys.len_2_20;
       }
     }
 
     if (fieldName === 'size') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkShoeSize(fieldValue)) {
-        errorMessage = 'Pole powinno zawierać rozmiar, np. 40 lub 40.5';
+        errorMessage = formValidationKeys.isShoeSize;
       }
     }
 
@@ -205,7 +205,7 @@ class EquipmentForm extends React.Component {
       return <Navigate to="/equipment" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';
     const fetchError = this.state.error ? t('form.messages.fetchError') : '';
     const pageTitle =
       this.state.formMode === formMode.NEW

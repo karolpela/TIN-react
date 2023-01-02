@@ -6,7 +6,7 @@ import {
   addCustomerApiCall,
   updateCustomerApiCall
 } from '../../apiCalls/customerApiCalls';
-import formMode from '../../helpers/formHelper';
+import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import { checkRequired, checkTextLengthRange, checkPhoneNo } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
 import FormInput from '../form/FormInput';
@@ -140,25 +140,25 @@ class CustomerForm extends React.Component {
 
     if (fieldName === 'firstName') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkTextLengthRange(fieldValue, 2, 20)) {
-        errorMessage = 'Pole powinno zawierać od 2 do 20 znaków';
+        errorMessage = formValidationKeys.len_2_20;
       }
     }
 
     if (fieldName === 'lastName') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkTextLengthRange(fieldValue, 2, 40)) {
-        errorMessage = 'Pole powinno zawierać od 2 do 40 znaków';
+        errorMessage = formValidationKeys.len_2_40;
       }
     }
 
     if (fieldName === 'phoneNo') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkPhoneNo(fieldValue)) {
-        errorMessage = 'Pole powinno składać się z dokładnie 9 cyfr';
+        errorMessage = formValidationKeys.isPhoneNo;
       }
     }
 
@@ -205,7 +205,7 @@ class CustomerForm extends React.Component {
       return <Navigate to="/customers" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';
     const fetchError = this.state.error ? t('form.messages.fetchError') : '';
     const pageTitle =
       this.state.formMode === formMode.NEW

@@ -1,146 +1,165 @@
 {
-    "title": "Rental shop",
-    "main-page": {
-        "content": "Main page",
-        "description": "Rental shop management application"
+  "title": "Rental shop",
+  "common": {
+    "error": "Error",
+    "loading": "Loading"
+  },
+  "main-page": {
+    "content": "Main page",
+    "description": "Rental shop management application"
+  },
+  "nav": {
+    "main-page": "Main page",
+    "customers": "Customers",
+    "equipment": "Equipment",
+    "rentals": "Rentals",
+    "logging": "Login",
+    "logIn": "Log in",
+    "logOut": "Log out",
+    "loggedAs": "Logged in as"
+  },
+  "list": {
+    "actions": {
+      "title": "Actions",
+      "details": "Details",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "form": {
+    "actions": {
+      "return": "Return",
+      "edit": "Edit",
+      "cancel": "Cancel"
     },
-    "nav": {
-        "main-page": "Main page",
-        "customers": "Customers",
-        "equipment": "Equipment",
-        "rentals": "Rentals",
-        "logging": "Login",
-        "logIn": "Log in",
-        "logOut": "Log out",
-        "loggedAs": "Logged in as"
+    "validation": {
+      "messages": {
+        "hasErrors": "Form has errors",
+        "fetchError": "Communication error",
+        "notEmpty": "Field is required",
+        "len_2_12": "Field must contain from 2 to 12 characters",
+        "len_2_20": "Field must contain from 2 to 20 characters",
+        "len_2_40": "Field must contain from 2 to 40 characters",
+        "isPhoneNo": "Field must contain exactly 9 digits",
+        "isShoeSize": "Field must contain size e.g. 40.0 or 40.5",
+        "isInteger": "Field must contain an integer",
+        "notInFuture": "Date must not be from the future",
+        "afterOrEqualToStartDate": "Date must greater or equal to start date"
+      }
+    }
+  },
+  "customer": {
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "phoneNo": "Phone number",
+      "password": "Password"
     },
     "list": {
-        "actions": {
-            "title": "Actions",
-            "details": "Details",
-            "edit": "Edit",
-            "delete": "Delete"
-        }
+      "title": "Customers",
+      "addNew": "Add new customer",
+      "noData": "No clients in database",
+      "pageTitle": "Customer list"
     },
     "form": {
-        "actions": {
-            "return": "Return",
-            "edit": "Edit",
-            "cancel": "Cancel"
+      "rentals": "Rental history",
+      "add": {
+        "pageTitle": "Adding new customer",
+        "btnLabel": "Add customer",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Customer added successfully"
         }
-    },
-    "customer": {
-        "fields": {
-            "firstName": "First name",
-            "lastName": "Last name",
-            "phoneNo": "Phone number",
-            "password": "Password"
-        },
-        "list": {
-            "title": "Customers",
-            "addNew": "Add new customer",
-            "noData": "No clients in database",
-            "pageTitle": "Customer list"
-        },
-        "form": {
-            "rentals": "Rental history",
-            "add": {
-                "pageTitle": "Adding new customer",
-                "btnLabel": "Add customer",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Customer added successfully"
-                }
-            },
-            "edit": {
-                "pageTitle": "Editing customer",
-                "btnLabel": "Save changes",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Customer updated successfully"
-                }
-            },
-            "details": {
-                "pageTitle": "Customer details"
-            }
+      },
+      "edit": {
+        "pageTitle": "Editing customer",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Customer updated successfully"
         }
+      },
+      "details": {
+        "pageTitle": "Customer details"
+      }
+    }
+  },
+  "equipment": {
+    "fields": {
+      "type": "Type",
+      "size": "Size",
+      "purpose": "Purpose"
     },
-    "equipment": {
-        "fields": {
-            "type": "Type",
-            "size": "Size",
-            "purpose": "Purpose"
-        },
-        "list": {
-            "title": "Equipment",
-            "addNew": "Add new equipment",
-            "noData": "No equipment in database",
-            "pageTitle": "Equipment list"
-        },
-        "form": {
-            "rentals": "Rental history",
-            "add": {
-                "pageTitle": "Add new equipment",
-                "btnLabel": "Add equipment",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Equipment added successfully"
-                }
-            },
-            "edit": {
-                "pageTitle": "Editing equipment",
-                "btnLabel": "Save changes",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Equipment updated successfully"
-                }
-            },
-            "details": {
-                "pageTitle": "Equipment details"
-            }
+    "list": {
+      "title": "Equipment",
+      "addNew": "Add new equipment",
+      "noData": "No equipment in database",
+      "pageTitle": "Equipment list"
+    },
+    "form": {
+      "rentals": "Rental history",
+      "add": {
+        "pageTitle": "Add new equipment",
+        "btnLabel": "Add equipment",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Equipment added successfully"
         }
-    },
-    "rentals": {
-        "fields": {
-            "customer": "Customer",
-            "equipment": "Equipment",
-            "startDate": "Rental date",
-            "endDate": "Return date",
-            "dropdown": {
-                "chooseClient": "Choose customer",
-                "chooseEquipment": "Choose equipment"
-            }
-        },
-        "list": {
-            "title": "Rentals",
-            "addNew": "Add new rental",
-            "noData": "No rentals in database",
-            "pageTitle": "Rental list"
-        },
-        "form": {
-            "add": {
-                "pageTitle": "Adding new rental",
-                "btnLabel": "Add rental",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Rental added successfully"
-                }
-            },
-            "edit": {
-                "pageTitle": "Editing rental",
-                "btnLabel": "Save changes",
-                "confirm": {
-                    "header": "Confirmation",
-                    "text": "Rental updated successfully"
-                }
-            },
-            "details": {
-                "pageTitle": "Rental details"
-            }
+      },
+      "edit": {
+        "pageTitle": "Editing equipment",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Equipment updated successfully"
         }
+      },
+      "details": {
+        "pageTitle": "Equipment details"
+      }
+    }
+  },
+  "rental": {
+    "fields": {
+      "customer": "Customer",
+      "equipment": "Equipment",
+      "startDate": "Rental date",
+      "endDate": "Return date",
+      "dropdown": {
+        "chooseClient": "Choose customer",
+        "chooseEquipment": "Choose equipment"
+      }
     },
-    "validationMessage": {
-        "fieldRequired": "Field is required"
+    "list": {
+      "title": "Rentals",
+      "addNew": "Add new rental",
+      "noData": "No rentals in database",
+      "pageTitle": "Rental list"
     },
-    "id": "Id"
+    "form": {
+      "add": {
+        "pageTitle": "Adding new rental",
+        "btnLabel": "Add rental",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Rental added successfully"
+        }
+      },
+      "edit": {
+        "pageTitle": "Editing rental",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Rental updated successfully"
+        }
+      },
+      "details": {
+        "pageTitle": "Rental details"
+      }
+    }
+  },
+  "validationMessage": {
+    "fieldRequired": "Field is required"
+  },
+  "id": "Id"
 }

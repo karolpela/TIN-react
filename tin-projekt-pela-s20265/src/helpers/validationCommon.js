@@ -116,10 +116,10 @@ export function checkDateIfAfterOrEqual(value, compareTo) {
 }
 
 export function checkShoeSize(value) {
-  // true for eg. 40 or 40.5
+  // true for eg. 40.0 or 40.5
   if (!value) {
     return false;
   }
-  const pattern = /^[1-9][0-9](\.[5])?$/;
+  const pattern = /^[1-9][0-9](\.[05])?$/;
   return pattern.test(value);
 }

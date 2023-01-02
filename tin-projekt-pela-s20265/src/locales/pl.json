@@ -1,9 +1,9 @@
 {
+  "title": "Wypożyczalnia sprzętu sportowego",
   "common": {
     "error": "Błąd",
     "loading": "Ładowanie"
   },
-  "title": "Wypożyczalnia sprzętu sportowego",
   "main-page": {
     "content": "Strona główna",
     "description": "Aplikacja zarządzająca systemem wypożyczalni sprzętu sportowego"
@@ -32,9 +32,20 @@
       "edit": "Edytuj",
       "cancel": "Anuluj"
     },
-    "messages": {
-      "hasErrors": "Formularz zawiera błędy",
-      "fetchError": "Błąd komunikacji"
+    "validation": {
+      "messages": {
+        "hasErrors": "Formularz zawiera błędy",
+        "fetchError": "Błąd komunikacji",
+        "notEmpty": "Pole jest wymagane",
+        "len_2_12": "Pole powinno zawierać od 2 do 12 znaków",
+        "len_2_20": "Pole powinno zawierać od 2 do 20 znaków",
+        "len_2_40": "Pole powinno zawierać od 2 do 40 znaków",
+        "isPhoneNo": "Pole powinno składać się z dokładnie 9 cyfr",
+        "isShoeSize": "Pole powinno zawierać rozmiar w formacie np. 40.0 lub 40.5",
+        "isInteger": "Pole powinno zawierać liczbę całkowitą",
+        "notInFuture": "Data nie może być z przyszłości",
+        "afterOrEqualToStartDate": "Data musi być równa lub późniejsza od daty wypożyczenia"
+      }
     }
   },
   "customer": {

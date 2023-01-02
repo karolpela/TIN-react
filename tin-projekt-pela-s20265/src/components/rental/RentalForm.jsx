@@ -7,7 +7,7 @@ import {
 } from '../../apiCalls/rentalApiCalls';
 import { getCustomersApiCall } from '../../apiCalls/customerApiCalls';
 import { getEquipmentApiCall } from '../../apiCalls/equipmentApiCalls';
-import formMode from '../../helpers/formHelper';
+import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import {
   checkRequired,
   checkDate,
@@ -212,31 +212,31 @@ class RentalForm extends React.Component {
 
     if (fieldName === 'customerId') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       }
     }
 
     if (fieldName === 'equipmentId') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       }
     }
 
     if (fieldName === 'startDate') {
       if (!checkRequired(fieldValue)) {
-        errorMessage = 'field required';
+        errorMessage = formValidationKeys.notEmpty;
       } else if (!checkDate(fieldValue)) {
-        errorMessage = 'Pole powinno zawierać date';
+        errorMessage = formValidationKeys.isDate;
       } else if (checkDateIfAfterOrEqual(fieldValue, nowString)) {
-        errorMessage = 'data nie z przyszlosci';
+        errorMessage = formValidationKeys.notInFuture;
       }
     }
 
     if (fieldName === 'endDate' && fieldValue) {
       if (!checkDate(fieldValue)) {
-        errorMessage = 'Pole powinno zawierać date';
+        errorMessage = formValidationKeys.isDate;
       } else if (!checkDateIfAfter(fieldValue, this.state.rental['startDate'].slice(0, 10))) {
-        errorMessage = 'data zwrotu nie moze byc wczesniejsza niz wypozyczenia';
+        errorMessage = formValidationKeys.afterOrEqualToStartDate;
       }
     }
 
@@ -283,7 +283,7 @@ class RentalForm extends React.Component {
       return <Navigate to="/rentals" state={{ notice: notice }} />;
     }
 
-    const errorsSummary = this.hasErrors() ? t('form.messages.hasErrors') : '';
+    const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';
     const fetchError = this.state.error ? t('form.messages.fetchError') : '';
     const pageTitle =
       this.state.formMode === formMode.NEW
