@@ -72,9 +72,9 @@ class EquipmentDetails extends React.Component {
       <main>
         <h2>{t('equipment.form.details.pageTitle')}</h2>
         {content}
-        <div className="sectionButtons">
+        <div className="section-buttons">
           <Link to="/equipment" className="form-button-back">
-            ret
+            {t('form.actions.return')}
           </Link>
         </div>
       </main>

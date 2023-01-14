@@ -4,12 +4,12 @@
     "error": "Error",
     "loading": "Loading"
   },
-  "main-page": {
+  "mainPage": {
     "content": "Main page",
     "description": "Rental shop management application"
   },
   "nav": {
-    "main-page": "Main page",
+    "mainPage": "Main page",
     "customers": "Customers",
     "equipment": "Equipment",
     "rentals": "Rentals",
@@ -30,7 +30,8 @@
     "actions": {
       "return": "Return",
       "edit": "Edit",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "login": "Log in"
     },
     "validation": {
       "messages": {
@@ -158,8 +159,8 @@
       }
     }
   },
-  "validationMessage": {
-    "fieldRequired": "Field is required"
+  "auth": {
+    "pageTitle": "Login page"
   },
   "id": "Id"
 }

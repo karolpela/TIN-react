@@ -54,7 +54,7 @@ class CustomerList extends React.Component {
     } else if (!isLoaded) {
       content = <p>{t('common.loading')}</p>;
     } else if (customers.length === 0) {
-      content = <p>tr</p>;
+      content = <p>{t('customer.list.noData')}</p>;
     } else {
       content = <CustomerListTable customers={customers} />;
     }
@@ -64,11 +64,11 @@ class CustomerList extends React.Component {
         <h2>{t('customer.list.pageTitle')}</h2>
         <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
         {content}
-        <p className="section-buttons">
+        <div className="section-buttons">
           <Link to="/customers/add" className="button-add">
             {t('customer.list.addNew')}
           </Link>
-        </p>
+        </div>
       </main>
     );
   }

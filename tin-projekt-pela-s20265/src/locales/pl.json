@@ -4,12 +4,12 @@
     "error": "Błąd",
     "loading": "Ładowanie"
   },
-  "main-page": {
+  "mainPage": {
     "content": "Strona główna",
     "description": "Aplikacja zarządzająca systemem wypożyczalni sprzętu sportowego"
   },
   "nav": {
-    "main-page": "Strona główna",
+    "mainPage": "Strona główna",
     "customers": "Klienci",
     "equipment": "Sprzęt",
     "rentals": "Wypożyczenia",
@@ -30,7 +30,8 @@
     "actions": {
       "return": "Powrót",
       "edit": "Edytuj",
-      "cancel": "Anuluj"
+      "cancel": "Anuluj",
+      "login": "Zaloguj"
     },
     "validation": {
       "messages": {
@@ -158,8 +159,8 @@
       }
     }
   },
-  "validationMessage": {
-    "fieldRequired": "Pole jest wymagane"
+  "auth": {
+    "pageTitle": "Logowanie"
   },
   "id": "Id"
 }

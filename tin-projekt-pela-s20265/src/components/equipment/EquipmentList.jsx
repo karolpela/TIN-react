@@ -64,11 +64,11 @@ class EquipmentList extends React.Component {
         <h2>{t('equipment.list.pageTitle')}</h2>
         <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
         {content}
-        <p className="section-buttons">
+        <div className="section-buttons">
           <Link to="/equipment/add" className="button-add">
             {t('equipment.list.addNew')}
           </Link>
-        </p>
+        </div>
       </main>
     );
   }

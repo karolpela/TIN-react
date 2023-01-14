@@ -72,7 +72,7 @@ class CustomerDetails extends React.Component {
       <main>
         <h2>{t('customer.form.details.pageTitle')}</h2>
         {content}
-        <div className="sectionButtons">
+        <div className="section-buttons">
           <Link to="/customers" className="form-button-back">
             {t('form.actions.return')}
           </Link>

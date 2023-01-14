@@ -53,7 +53,7 @@ class RentalList extends React.Component {
     } else if (!isLoaded) {
       content = <p>{t('common.loading')}</p>;
     } else if (rentals.length === 0) {
-      content = <p>{t('rentals.list.noData')}</p>;
+      content = <p>{t('rental.list.noData')}</p>;
     } else {
       content = <RentalListTable rentals={rentals} />;
     }

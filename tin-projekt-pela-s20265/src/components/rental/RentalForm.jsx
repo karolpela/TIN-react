@@ -284,7 +284,7 @@ class RentalForm extends React.Component {
     }
 
     const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';
-    const fetchError = this.state.error ? t('form.messages.fetchError') : '';
+    const fetchError = this.state.error ? t('form.validation.messages.fetchError') : '';
     const pageTitle =
       this.state.formMode === formMode.NEW
         ? t('rental.form.add.pageTitle')

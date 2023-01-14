@@ -1,14 +1,21 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import formMode from '../../helpers/formHelper';
 
 function FormButtons(props) {
   const { t } = useTranslation();
   const formType = props.formType;
-  const submitButtonLabel =
-    props.formMode === formMode.NEW
-      ? t(`${formType}.form.add.btnLabel`)
-      : t(`${formType}.form.edit.btnLabel`);
+  const navigate = useNavigate();
+
+  let submitButtonLabel;
+
+  if (props.formMode === formMode.NEW) {
+    submitButtonLabel = t(`${formType}.form.add.btnLabel`);
+  } else if (props.formMode === formMode.EDIT) {
+    submitButtonLabel = t(`${formType}.form.edit.btnLabel`);
+  } else {
+    submitButtonLabel = t(props.submitButtonLabel);
+  }
 
   return (
     <div className="form-buttons">
@@ -16,9 +23,9 @@ function FormButtons(props) {
         {props.error}
       </p>
       <input type="submit" className="form-button-submit" value={submitButtonLabel} />
-      <Link to={props.cancelPath} className="form-button-cancel">
+      <button type="button" onClick={() => navigate(-1)} className="form-button-cancel">
         {t('form.actions.cancel')}
-      </Link>
+      </button>
     </div>
   );
 }

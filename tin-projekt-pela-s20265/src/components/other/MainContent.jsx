@@ -4,8 +4,8 @@ function MainContent() {
   const { t } = useTranslation();
   return (
     <main>
-      <h2>{t('main-page.content')}</h2>
-      <p>{t('main-page.description')}</p>
+      <h2>{t('mainPage.content')}</h2>
+      <p>{t('mainPage.description')}</p>
     </main>
   );
 }

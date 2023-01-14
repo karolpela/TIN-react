@@ -1,0 +1,4 @@
+- add user categories
+- allow not authed to only view equipment
+- protect resource modification from not authed
+- use one imported withRouter?

@@ -11,12 +11,6 @@ body {
 
 header,
 main,
-footer {
-  background-color: white;
-}
-
-header,
-main,
 footer,
 nav {
   background-color: white;
@@ -74,6 +68,13 @@ nav ul li a.active {
 
 main {
   padding: 1.5rem;
+  margin: auto;
+  min-width: fit-content;
+  width: 50%;
+}
+
+.content {
+  background-color: white;
 }
 
 footer {
@@ -219,8 +220,8 @@ textarea {
 
 .form {
   margin-left: 2rem;
-  /* display: grid;
-    grid-template-columns: 170px 300px 1fr; */
+  display: grid;
+  grid-template-columns: 170px 300px 170px;
   gap: 1rem;
 }
 
@@ -254,14 +255,12 @@ textarea {
 }
 
 .form-button-submit,
-.form-button-cancel,
-.form-button-back {
+.form-button-cancel {
   width: 100%;
 }
 
 .form-button-cancel,
-.form-button-edit,
-.form-button-back {
+.form-button-edit {
   box-sizing: border-box;
   display: block;
 }
@@ -302,9 +301,19 @@ span.material-symbols-outlined {
   padding: 15px;
 }
 
+.section-buttons {
+  margin-top: 2rem;
+  width: 200px;
+}
+
 /* Media queries */
 
 @media all and (max-width: 720px) {
+  main {
+    width: unset;
+    min-width: unset;
+  }
+
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   }

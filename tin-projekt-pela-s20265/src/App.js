@@ -1,3 +1,4 @@
+import React from 'react';
 import Footer from './components/fragments/Footer';
 import Header from './components/fragments/Header';
 import Navigation from './components/fragments/Navigation';
@@ -12,35 +13,67 @@ import RentalForm from './components/rental/RentalForm';
 import EquipmentList from './components/equipment/EquipmentList';
 import EquipmentDetails from './components/equipment/EquipmentDetails';
 import EquipmentForm from './components/equipment/EquipmentForm';
+import LoginForm from './components/other/LoginForm';
+import { getCurrentUser } from './helpers/authHelper';
+import ProtectedRoute from './components/other/ProtectedRoute';
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route exact path="/" element={<MainContent />} />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: undefined
+    };
+  }
 
-          <Route exact path="/customers" element={<CustomerList />} />
-          <Route exact path="/customers/add" element={<CustomerForm />} />
-          <Route exact path="/customers/details/:customerId" element={<CustomerDetails />} />
-          <Route exact path="/customers/edit/:customerId" element={<CustomerForm />} />
+  handleLogin = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.setState({ user: user });
+  };
 
-          <Route exact path="/rentals" element={<RentalList />} />
-          <Route exact path="/rentals/add" element={<RentalForm />} />
-          <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />} />
-          <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
+  handleLogout = () => {
+    localStorage.removeItem('user');
+    this.setState({ user: undefined });
+  };
 
-          <Route exact path="/equipment" element={<EquipmentList />} />
-          <Route exact path="/equipment/add" element={<EquipmentForm />} />
-          <Route exact path="/equipment/details/:equipmentId" element={<EquipmentDetails />} />
-          <Route exact path="/equipment/edit/:equipmentId" element={<EquipmentForm />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
-  );
+  componentDidMount() {
+    const currentUser = getCurrentUser();
+    this.setState({ user: currentUser });
+  }
+
+  render() {
+    return (
+      <div className="content">
+        <Header />
+        <BrowserRouter>
+          <Navigation handleLogout={this.handleLogout} />
+          <Routes>
+            <Route exact path="/" element={<MainContent />} />
+            <Route
+              exact
+              path="/login"
+              element={<LoginForm handleLogin={() => this.handleLogin(this.props)} />}
+            />
+
+            <Route exact path="/customers" element={<CustomerList />} />
+            <Route exact path="/customers/add" element={<CustomerForm />} />
+            <Route exact path="/customers/details/:customerId" element={<CustomerDetails />} />
+            <Route exact path="/customers/edit/:customerId" element={<CustomerForm />} />
+
+            <Route exact path="/rentals" element={<ProtectedRoute component={<RentalList />} />} />
+            <Route exact path="/rentals/add" element={<RentalForm />} />
+            <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />} />
+            <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
+
+            <Route exact path="/equipment" element={<EquipmentList />} />
+            <Route exact path="/equipment/add" element={<EquipmentForm />} />
+            <Route exact path="/equipment/details/:equipmentId" element={<EquipmentDetails />} />
+            <Route exact path="/equipment/edit/:equipmentId" element={<EquipmentForm />} />
+          </Routes>
+        </BrowserRouter>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;

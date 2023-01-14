@@ -72,7 +72,7 @@ class RentalDetails extends React.Component {
       <main>
         <h2>cust det</h2>
         {content}
-        <div className="sectionButtons">
+        <div className="section-buttons">
           <Link to="/rentals" className="form-button-back">
             ret
           </Link>
