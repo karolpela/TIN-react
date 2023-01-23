@@ -1,25 +1,23 @@
+import { createOptions } from '../helpers/authHelper';
+
 const equipmentBaseUrl = 'http://localhost:3000/api/equipment';
 
 export function getEquipmentApiCall() {
-  const promise = fetch(equipmentBaseUrl);
+  const options = createOptions('GET', null);
+  const promise = fetch(equipmentBaseUrl, options);
   return promise;
 }
 
 export function getEquipmentByIdApiCall(equipmentId) {
   const url = `${equipmentBaseUrl}/${equipmentId}`;
-  const promise = fetch(url);
+  const options = createOptions('GET', null);
+  const promise = fetch(url, options);
   return promise;
 }
 
 export function addEquipmentApiCall(equipment) {
   const equipmentString = JSON.stringify(equipment);
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: equipmentString
-  };
+  const options = createOptions('POST', equipmentString);
   const promise = fetch(equipmentBaseUrl, options);
   return promise;
 }
@@ -27,13 +25,7 @@ export function addEquipmentApiCall(equipment) {
 export function updateEquipmentApiCall(equipmentId, equipment) {
   const url = `${equipmentBaseUrl}/${equipmentId}`;
   const equipmentString = JSON.stringify(equipment);
-  const options = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: equipmentString
-  };
+  const options = createOptions('PUT', equipmentString);
   const promise = fetch(url, options);
   return promise;
 }

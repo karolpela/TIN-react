@@ -139,7 +139,8 @@ main h2 {
 .form-button-cancel,
 .form-button-edit,
 .form-button-back,
-.success {
+.successNotice,
+.failNotice {
   border: none;
   border-radius: 5px;
   color: white;
@@ -294,11 +295,19 @@ span.material-symbols-outlined {
   display: none;
 }
 
-.success {
+.successNotice,
+.failNotice {
   color: black;
   border: 2px solid;
-  border-color: #27ae60;
   padding: 15px;
+}
+
+.successNotice {
+  border-color: #27ae60;
+}
+
+.failNotice {
+  border-color: #e74c3c;
 }
 
 .section-buttons {

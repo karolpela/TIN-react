@@ -160,7 +160,8 @@
     }
   },
   "auth": {
-    "pageTitle": "Logowanie"
+    "pageTitle": "Logowanie",
+    "noPermissionsRedirect": "Błąd! Brak uprawnień do wyświetlenia strony. Nastąpiło przekierowanie."
   },
   "id": "Id"
 }

@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { getEquipmentApiCall } from '../../apiCalls/equipmentApiCalls';
 import EquipmentListTable from './EquipmentListTable';
 import { withTranslation } from 'react-i18next';
+import { isEmployee } from '../../helpers/authHelper';
 
 class EquipmentList extends React.Component {
   constructor(props) {
@@ -62,13 +63,15 @@ class EquipmentList extends React.Component {
     return (
       <main>
         <h2>{t('equipment.list.pageTitle')}</h2>
-        <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
+        <p className={this.state.notice ? 'successNotice' : ''}>{this.state.notice}</p>
         {content}
-        <div className="section-buttons">
-          <Link to="/equipment/add" className="button-add">
-            {t('equipment.list.addNew')}
-          </Link>
-        </div>
+        {isEmployee() && (
+          <div className="section-buttons">
+            <Link to="/equipment/add" className="button-add">
+              {t('equipment.list.addNew')}
+            </Link>
+          </div>
+        )}
       </main>
     );
   }

@@ -1,26 +1,30 @@
+import { createOptions } from '../helpers/authHelper';
+
 const customersBaseUrl = 'http://localhost:3000/api/customers';
 
 export function getCustomersApiCall() {
-  const promise = fetch(customersBaseUrl);
+  const options = createOptions('GET', null);
+  const promise = fetch(customersBaseUrl, options);
   return promise;
 }
 
 export function getCustomerByIdApiCall(customerId) {
   const url = `${customersBaseUrl}/${customerId}`;
-  const promise = fetch(url);
+  const options = createOptions('GET', null);
+  const promise = fetch(url, options);
+  return promise;
+}
 
+export function getCustomerRentalByIdApiCall(customerId, rentalId) {
+  const url = `${customersBaseUrl}/${customerId}/rentals/${rentalId}`;
+  const options = createOptions('GET', null);
+  const promise = fetch(url, options);
   return promise;
 }
 
 export function addCustomerApiCall(customer) {
   const customerString = JSON.stringify(customer);
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: customerString
-  };
+  const options = createOptions('POST', customerString);
   const promise = fetch(customersBaseUrl, options);
   return promise;
 }
@@ -28,13 +32,7 @@ export function addCustomerApiCall(customer) {
 export function updateCustomerApiCall(customerId, customer) {
   const url = `${customersBaseUrl}/${customerId}`;
   const customerString = JSON.stringify(customer);
-  const options = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: customerString
-  };
+  const options = createOptions('PUT', customerString);
   const promise = fetch(url, options);
   return promise;
 }

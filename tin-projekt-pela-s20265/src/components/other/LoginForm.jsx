@@ -20,8 +20,7 @@ class LoginForm extends React.Component {
         password: ''
       },
       error: '',
-      message: '',
-      prevPath: ''
+      message: ''
     };
   }
 
@@ -137,7 +136,7 @@ class LoginForm extends React.Component {
             value={this.state.user.phoneNo ?? ''}
           />
           <FormInput
-            type="text"
+            type="password"
             label={t('customer.fields.password')}
             required
             error={this.state.errors.password}
@@ -145,11 +144,7 @@ class LoginForm extends React.Component {
             onChange={this.handleChange}
             value={this.state.user.password ?? ''}
           />
-          <FormButtons
-            error={globalErrorMessage}
-            cancelPath={this.state.prevPath}
-            submitButtonLabel={t('form.actions.login')}
-          />
+          <FormButtons error={globalErrorMessage} submitButtonLabel={t('form.actions.login')} />
         </form>
       </main>
     );

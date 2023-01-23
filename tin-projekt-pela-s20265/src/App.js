@@ -15,6 +15,7 @@ import EquipmentDetails from './components/equipment/EquipmentDetails';
 import EquipmentForm from './components/equipment/EquipmentForm';
 import LoginForm from './components/other/LoginForm';
 import { getCurrentUser } from './helpers/authHelper';
+import EmployeeOnlyRoute from './components/other/EmployeeOnlyRoute';
 import ProtectedRoute from './components/other/ProtectedRoute';
 
 class App extends React.Component {
@@ -26,7 +27,7 @@ class App extends React.Component {
   }
 
   handleLogin = (user) => {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', user);
     this.setState({ user: user });
   };
 
@@ -48,21 +49,46 @@ class App extends React.Component {
           <Navigation handleLogout={this.handleLogout} />
           <Routes>
             <Route exact path="/" element={<MainContent />} />
+            <Route exact path="/login" element={<LoginForm handleLogin={this.handleLogin} />} />
             <Route
               exact
-              path="/login"
-              element={<LoginForm handleLogin={() => this.handleLogin(this.props)} />}
+              path="/customers"
+              element={
+                <ProtectedRoute component={<EmployeeOnlyRoute component={<CustomerList />} />} />
+              }
+            />
+            <Route
+              exact
+              path="/customers/add"
+              element={<EmployeeOnlyRoute component={<CustomerForm />} />}
+            />
+            <Route
+              exact
+              path="/customers/details/:customerId"
+              element={<EmployeeOnlyRoute component={<CustomerDetails />} />}
+            />
+            <Route
+              exact
+              path="/customers/edit/:customerId"
+              element={<EmployeeOnlyRoute component={<CustomerForm />} />}
             />
 
-            <Route exact path="/customers" element={<CustomerList />} />
-            <Route exact path="/customers/add" element={<CustomerForm />} />
-            <Route exact path="/customers/details/:customerId" element={<CustomerDetails />} />
-            <Route exact path="/customers/edit/:customerId" element={<CustomerForm />} />
-
             <Route exact path="/rentals" element={<ProtectedRoute component={<RentalList />} />} />
-            <Route exact path="/rentals/add" element={<RentalForm />} />
-            <Route exact path="/rentals/details/:rentalId" element={<RentalDetails />} />
-            <Route exact path="/rentals/edit/:rentalId" element={<RentalForm />} />
+            <Route
+              exact
+              path="/rentals/add"
+              element={<EmployeeOnlyRoute component={<RentalForm />} />}
+            />
+            <Route
+              exact
+              path="/rentals/details/:rentalId"
+              element={<ProtectedRoute component={<RentalDetails />} />}
+            />
+            <Route
+              exact
+              path="/rentals/edit/:rentalId"
+              element={<EmployeeOnlyRoute component={<RentalForm />} />}
+            />
 
             <Route exact path="/equipment" element={<EquipmentList />} />
             <Route exact path="/equipment/add" element={<EquipmentForm />} />

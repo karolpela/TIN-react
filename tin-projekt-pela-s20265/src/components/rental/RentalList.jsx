@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { getRentalsApiCall } from '../../apiCalls/rentalApiCalls';
+import {
+  getRentalsByCustomerCall as getRentalByCustomerApiCall,
+  getRentalsApiCall
+} from '../../apiCalls/rentalApiCalls';
 import RentalListTable from './RentalListTable';
 import { withTranslation } from 'react-i18next';
+import { getCurrentUser, isEmployee } from '../../helpers/authHelper';
 
 class RentalList extends React.Component {
   constructor(props) {
@@ -21,7 +25,8 @@ class RentalList extends React.Component {
   }
 
   fetchRentalList = () => {
-    getRentalsApiCall()
+    const user = getCurrentUser();
+    (isEmployee() ? getRentalsApiCall() : getRentalByCustomerApiCall(user.userId))
       .then((res) => res.json())
       .then(
         (data) => {
@@ -61,13 +66,15 @@ class RentalList extends React.Component {
     return (
       <main>
         <h2>{t('rental.list.pageTitle')}</h2>
-        <p className={this.state.notice ? 'success' : ''}>{this.state.notice}</p>
+        <p className={this.state.notice ? 'successNotice' : ''}>{this.state.notice}</p>
         {content}
-        <p className="section-buttons">
-          <Link to="/rentals/add" className="button-add">
-            {t('rental.list.addNew')}
-          </Link>
-        </p>
+        {isEmployee() && (
+          <p className="section-buttons">
+            <Link to="/rentals/add" className="button-add">
+              {t('rental.list.addNew')}
+            </Link>
+          </p>
+        )}
       </main>
     );
   }

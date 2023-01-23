@@ -1,7 +1,9 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
+import { getCustomerRentalByIdApiCall } from '../../apiCalls/customerApiCalls';
 import { getRentalByIdApiCall } from '../../apiCalls/rentalApiCalls';
+import { getCurrentUser, isEmployee } from '../../helpers/authHelper';
 import RentalDetailsData from './RentalDetailsData';
 
 class RentalDetails extends React.Component {
@@ -20,8 +22,10 @@ class RentalDetails extends React.Component {
   }
 
   fetchRentalDetails = () => {
+    const user = getCurrentUser();
+    let userId = user.userId;
     let rentalId = parseInt(this.props.match.params.rentalId);
-    getRentalByIdApiCall(rentalId)
+    (isEmployee() ? getRentalByIdApiCall(rentalId) : getCustomerRentalByIdApiCall(userId, rentalId))
       .then((res) => res.json())
       .then(
         (data) => {
@@ -70,11 +74,11 @@ class RentalDetails extends React.Component {
 
     return (
       <main>
-        <h2>cust det</h2>
+        <h2>{t('rental.form.details.pageTitle')}</h2>
         {content}
         <div className="section-buttons">
           <Link to="/rentals" className="form-button-back">
-            ret
+            {t('form.actions.return')}
           </Link>
         </div>
       </main>

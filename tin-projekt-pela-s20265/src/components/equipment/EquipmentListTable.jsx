@@ -1,5 +1,6 @@
 import EquipmentListTableRow from './EquipmentListTableRow';
 import { useTranslation } from 'react-i18next';
+import { isAuthenticated } from '../../helpers/authHelper';
 
 function EquipmentListTable(props) {
   const { t } = useTranslation();
@@ -11,7 +12,7 @@ function EquipmentListTable(props) {
           <th>{t('equipment.fields.type')}</th>
           <th>{t('equipment.fields.purpose')}</th>
           <th>{t('equipment.fields.size')}</th>
-          <th>{t('list.actions.title')}</th>
+          {isAuthenticated() && <th>{t('list.actions.title')}</th>}
         </tr>
       </thead>
       <tbody>
