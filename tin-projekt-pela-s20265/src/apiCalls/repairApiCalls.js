@@ -36,10 +36,3 @@ export function updateCustomerApiCall(customerId, customer) {
   const promise = fetch(url, options);
   return promise;
 }
-
-export function deleteCustomerApiCall(customerId) {
-  const url = `${customersBaseUrl}/${customerId}`;
-  const options = createOptions('DELETE', null);
-  const promise = fetch(url, options);
-  return promise;
-}

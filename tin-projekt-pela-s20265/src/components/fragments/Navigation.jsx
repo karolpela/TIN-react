@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../../helpers/authHelper';
 import withRouter from '../../helpers/routerHelper';
+import NavElements from './NavElements';
 
 class Navigation extends React.Component {
   handleLanguageChange = (language) => {
@@ -23,18 +24,7 @@ class Navigation extends React.Component {
     return (
       <nav>
         <ul>
-          <li>
-            <Link to="/">{t('nav.mainPage')}</Link>
-          </li>
-          <li>
-            <Link to="/customers">{t('nav.customers')}</Link>
-          </li>
-          <li>
-            <Link to="/rentals">{t('nav.rentals')}</Link>
-          </li>
-          <li>
-            <Link to="/equipment">{t('nav.equipment')}</Link>
-          </li>
+          <NavElements />
           <li className="lang">{loginLogoutLink}</li>
           <li>
             <button

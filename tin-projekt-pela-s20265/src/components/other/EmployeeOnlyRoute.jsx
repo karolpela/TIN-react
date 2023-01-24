@@ -11,7 +11,11 @@ class EmployeeOnlyRoute extends React.Component {
       <>{Component}</>
     ) : (
       <>
-        <Navigate to="/" state={{ notice: t('auth.noPermissionsRedirect') }} replace />
+        <Navigate
+          to="/"
+          state={{ notice: { message: t('auth.noPermissionsRedirect'), type: 'fail' } }}
+          replace
+        />
       </>
     );
   }

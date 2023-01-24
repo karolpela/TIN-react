@@ -37,7 +37,7 @@ export function createOptions(method, body) {
     return {
       method: method,
       headers: {
-        'Content-Type': 'application-json',
+        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       },
       body: body
@@ -46,7 +46,7 @@ export function createOptions(method, body) {
     return {
       method: method,
       headers: {
-        'Content-Type': 'application-json',
+        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       }
     };

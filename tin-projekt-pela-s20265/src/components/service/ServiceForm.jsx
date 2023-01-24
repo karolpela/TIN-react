@@ -1,31 +1,33 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router-dom';
+import { getEquipmentApiCall } from '../../apiCalls/equipmentApiCalls';
 import {
-  getEquipmentByIdApiCall,
-  addEquipmentApiCall,
-  updateEquipmentApiCall
-} from '../../apiCalls/equipmentApiCalls';
+  getServiceByIdApiCall,
+  addServiceApiCall,
+  updateServiceApiCall,
+  getServiceTypesApiCall
+} from '../../apiCalls/serviceApiCalls';
 import formMode, { formValidationKeys } from '../../helpers/formHelper';
-import { checkRequired, checkTextLengthRange, checkShoeSize } from '../../helpers/validationCommon';
+import { checkRequired } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
-import FormInput from '../form/FormInput';
+import FormSelect from '../form/FormSelect';
 
-class EquipmentForm extends React.Component {
+class ServiceForm extends React.Component {
   constructor(props) {
     super(props);
-    const currentFormMode = this.props.match.params.equipmentId ? formMode.EDIT : formMode.NEW;
+    const currentFormMode = this.props.match.params.serviceId ? formMode.EDIT : formMode.NEW;
 
     this.state = {
-      equipment: {
-        type: '',
-        purpose: '',
-        size: ''
+      allowedTypes: [],
+      allEquipment: [],
+      service: {
+        equipmentId: '',
+        type: ''
       },
       errors: {
-        type: '',
-        purpose: '',
-        size: ''
+        equipmentId: '',
+        type: ''
       },
       formMode: currentFormMode,
       redirect: false,
@@ -35,13 +37,15 @@ class EquipmentForm extends React.Component {
 
   componentDidMount = () => {
     const currentFormMode = this.state.formMode;
+    this.fetchServiceTypes();
+    this.fetchAllEquipment();
     if (currentFormMode === formMode.EDIT) {
-      this.fetchEquipmentDetails();
+      this.fetchServiceDetails();
     }
   };
 
-  fetchEquipmentDetails = () => {
-    getEquipmentByIdApiCall(this.props.match.params.equipmentId)
+  fetchServiceTypes = () => {
+    getServiceTypesApiCall()
       .then((res) => res.json())
       .then(
         (data) => {
@@ -51,7 +55,58 @@ class EquipmentForm extends React.Component {
             });
           } else {
             this.setState({
-              equipment: data,
+              allowedTypes: data.map((t) => ({
+                // eslint-disable-next-line no-unused-labels
+                _id: t
+              })),
+              message: null
+            });
+          }
+        },
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      );
+  };
+
+  fetchAllEquipment = () => {
+    getEquipmentApiCall()
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              message: data.message
+            });
+          } else {
+            this.setState({
+              allEquipment: data.map((c) => c),
+              message: null
+            });
+          }
+        },
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      );
+  };
+
+  fetchServiceDetails = () => {
+    getServiceByIdApiCall(this.props.match.params.serviceId)
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              message: data.message
+            });
+          } else {
+            this.setState({
+              service: data,
               message: null
             });
           }
@@ -70,15 +125,15 @@ class EquipmentForm extends React.Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    const equipment = { ...this.state.equipment };
-    equipment[name] = value;
+    const service = { ...this.state.service };
+    service[name] = value;
 
     const errorMessage = this.validateField(name, value);
     const errors = { ...this.state.errors };
     errors[name] = errorMessage;
 
     this.setState({
-      equipment: equipment,
+      service: service,
       errors: errors
     });
   };
@@ -87,17 +142,17 @@ class EquipmentForm extends React.Component {
     event.preventDefault();
     const isValid = this.validateForm();
     if (isValid) {
-      const equipment = this.state.equipment;
+      const service = this.state.service;
       const currentFormMode = this.state.formMode;
 
       let promise, response;
 
       if (currentFormMode === formMode.NEW) {
-        promise = addEquipmentApiCall(equipment);
+        promise = addServiceApiCall(service);
       } else if (currentFormMode === formMode.EDIT) {
-        console.log(equipment);
-        const equipmentId = this.props.match.params.equipmentId;
-        promise = updateEquipmentApiCall(equipmentId, equipment);
+        console.log(service);
+        const serviceId = this.props.match.params.serviceId;
+        promise = updateServiceApiCall(serviceId, service);
       }
 
       if (promise) {
@@ -138,27 +193,17 @@ class EquipmentForm extends React.Component {
   validateField = (fieldName, fieldValue) => {
     let errorMessage = '';
 
+    if (fieldName === 'equipmentId') {
+      if (!checkRequired(fieldValue)) {
+        errorMessage = formValidationKeys.notEmpty;
+      }
+    }
+
     if (fieldName === 'type') {
       if (!checkRequired(fieldValue)) {
         errorMessage = formValidationKeys.notEmpty;
-      } else if (!checkTextLengthRange(fieldValue, 2, 12)) {
-        errorMessage = formValidationKeys.len_2_12;
-      }
-    }
-
-    if (fieldName === 'purpose') {
-      if (!checkRequired(fieldValue)) {
-        errorMessage = formValidationKeys.notEmpty;
-      } else if (!checkTextLengthRange(fieldValue, 2, 20)) {
-        errorMessage = formValidationKeys.len_2_20;
-      }
-    }
-
-    if (fieldName === 'size') {
-      if (!checkRequired(fieldValue)) {
-        errorMessage = formValidationKeys.notEmpty;
-      } else if (!checkShoeSize(fieldValue)) {
-        errorMessage = formValidationKeys.isShoeSize;
+      } else if (!this.state.allowedTypes.map((t) => t._id).includes(fieldValue)) {
+        errorMessage = formValidationKeys.illegalValue;
       }
     }
 
@@ -166,11 +211,11 @@ class EquipmentForm extends React.Component {
   };
 
   validateForm = () => {
-    const equipment = this.state.equipment;
+    const service = this.state.service;
     const errors = this.state.errors;
 
-    for (const fieldName in equipment) {
-      const fieldValue = equipment[fieldName];
+    for (const fieldName in service) {
+      const fieldValue = service[fieldName];
       const errorMessage = this.validateField(fieldName, fieldValue);
       errors[fieldName] = errorMessage;
     }
@@ -199,18 +244,18 @@ class EquipmentForm extends React.Component {
       const currentFormMode = this.state.formMode;
       const notice =
         currentFormMode === formMode.NEW
-          ? t('equipment.form.add.confirm.text')
-          : t('equipment.form.edit.confirm.text');
+          ? t('service.form.add.confirm.text')
+          : t('service.form.edit.confirm.text');
 
-      return <Navigate to="/equipment" state={{ notice: { message: notice, type: 'success' } }} />;
+      return <Navigate to="/services" state={{ notice: { message: notice, type: 'success' } }} />;
     }
 
     const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';
     const fetchError = this.state.error ? t('form.validation.messages.fetchError') : '';
     const pageTitle =
       this.state.formMode === formMode.NEW
-        ? t('equipment.form.add.pageTitle')
-        : t('equipment.form.edit.pageTitle');
+        ? t('service.form.add.pageTitle')
+        : t('service.form.add.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 
@@ -218,41 +263,31 @@ class EquipmentForm extends React.Component {
       <main>
         <h2>{pageTitle}</h2>
         <form className="form" onSubmit={this.handleSubmit}>
-          <FormInput
-            type="text"
-            label={t('equipment.fields.type')}
+          <FormSelect
+            label={t('service.fields.equipment')}
+            options={this.state.allEquipment}
+            display={['type', 'purpose', 'size']}
+            required
+            error={this.state.errors.equipmentId}
+            name="equipmentId"
+            onChange={this.handleChange}
+            value={this.state.service.equipmentId ?? ''}
+          />
+          <FormSelect
+            label={t('service.fields.type')}
+            options={this.state.allowedTypes}
+            display={['_id']}
             required
             error={this.state.errors.type}
             name="type"
-            placeholder="2-12 chars"
             onChange={this.handleChange}
-            value={this.state.equipment.type ?? ''}
-          />
-          <FormInput
-            type="text"
-            label={t('equipment.fields.purpose')}
-            required
-            error={this.state.errors.purpose}
-            name="purpose"
-            placeholder="2-20 chars"
-            onChange={this.handleChange}
-            value={this.state.equipment.purpose ?? ''}
-          />
-          <FormInput
-            type="text"
-            label={t('equipment.fields.size')}
-            required
-            error={this.state.errors.size}
-            name="size"
-            placeholder="e.g. 40 or 40.5"
-            onChange={this.handleChange}
-            value={this.state.equipment.size ?? ''}
+            value={this.state.service.type ?? ''}
           />
           <FormButtons
             formMode={this.state.formMode}
-            formType="equipment"
+            formType="service"
             error={globalErrorMessage}
-            cancelPath="/equipment"
+            cancelPath="/services"
           />
         </form>
       </main>
@@ -268,4 +303,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withTranslation()(withRouter(EquipmentForm));
+export default withTranslation()(withRouter(ServiceForm));

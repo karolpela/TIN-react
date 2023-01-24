@@ -202,7 +202,7 @@ class CustomerForm extends React.Component {
           ? t('customer.form.add.confirm.text')
           : t('customer.form.edit.confirm.text');
 
-      return <Navigate to="/customers" state={{ notice: notice }} />;
+      return <Navigate to="/customers" state={{ notice: { message: notice, type: 'success' } }} />;
     }
 
     const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';

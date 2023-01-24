@@ -20,6 +20,7 @@ function FormSelect(props) {
         value={props.value}
         onChange={props.onChange}
       >
+        {/* TODO show this*/}
         <option>---select---</option>
         {props.options.map((opt) => (
           <option key={opt._id} value={opt._id}>

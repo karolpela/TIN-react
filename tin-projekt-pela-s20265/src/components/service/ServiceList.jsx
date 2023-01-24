@@ -1,38 +1,34 @@
 import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import {
-  getRentalsByCustomerCall as getRentalByCustomerApiCall,
-  getRentalsApiCall
-} from '../../apiCalls/rentalApiCalls';
-import RentalListTable from './RentalListTable';
+import { Link, useParams, useLocation } from 'react-router-dom';
+import { getServicesApiCall } from '../../apiCalls/serviceApiCalls';
+import ServiceListTable from './ServiceListTable';
 import { withTranslation } from 'react-i18next';
-import { getCurrentUser, isEmployee } from '../../helpers/authHelper';
+import { isEmployee } from '../../helpers/authHelper';
 
-class RentalList extends React.Component {
+class ServiceList extends React.Component {
   constructor(props) {
     super(props);
     let notice = this.props.location.state?.notice;
     this.state = {
       error: null,
       isLoaded: false,
-      rentals: [],
+      services: [],
       notice: notice
     };
   }
 
   componentDidMount() {
-    this.fetchRentalList();
+    this.fetchServiceList();
   }
 
-  fetchRentalList = () => {
-    const user = getCurrentUser();
-    (isEmployee() ? getRentalsApiCall() : getRentalByCustomerApiCall(user.userId))
+  fetchServiceList = () => {
+    getServicesApiCall()
       .then((res) => res.json())
       .then(
         (data) => {
           this.setState({
             isLoaded: true,
-            rentals: data
+            services: data
           });
         },
         (error) => {
@@ -46,8 +42,9 @@ class RentalList extends React.Component {
 
   render() {
     const { t } = this.props;
-    const { error, isLoaded, rentals } = this.state;
-    let content;
+    const { error, isLoaded, services } = this.state;
+
+    let content = '';
 
     if (error) {
       content = (
@@ -57,23 +54,23 @@ class RentalList extends React.Component {
       );
     } else if (!isLoaded) {
       content = <p>{t('common.loading')}</p>;
-    } else if (rentals.length === 0) {
-      content = <p>{t('rental.list.noData')}</p>;
+    } else if (services.length === 0) {
+      content = <p>{t('service.list.noData')}</p>;
     } else {
-      content = <RentalListTable rentals={rentals} />;
+      content = <ServiceListTable services={services} />;
     }
 
     return (
       <main>
-        <h2>{t('rental.list.pageTitle')}</h2>
+        <h2>{t('service.list.pageTitle')}</h2>
         <p className={'notice-' + this.state.notice?.type}>{this.state.notice?.message}</p>
         {content}
         {isEmployee() && (
-          <p className="section-buttons">
-            <Link to="/rentals/add" className="button-add">
-              {t('rental.list.addNew')}
+          <div className="section-buttons">
+            <Link to="/services/add" className="button-add">
+              {t('service.list.addNew')}
             </Link>
-          </p>
+          </div>
         )}
       </main>
     );
@@ -89,4 +86,4 @@ export function withRouter(Children) {
   };
 }
 
-export default withTranslation()(withRouter(RentalList));
+export default withTranslation()(withRouter(ServiceList));

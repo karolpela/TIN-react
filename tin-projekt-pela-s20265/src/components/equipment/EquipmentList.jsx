@@ -63,7 +63,7 @@ class EquipmentList extends React.Component {
     return (
       <main>
         <h2>{t('equipment.list.pageTitle')}</h2>
-        <p className={this.state.notice ? 'successNotice' : ''}>{this.state.notice}</p>
+        <p className={'notice-' + this.state.notice?.type}>{this.state.notice?.message}</p>
         {content}
         {isEmployee() && (
           <div className="section-buttons">

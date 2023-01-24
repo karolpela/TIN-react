@@ -15,7 +15,7 @@ class MainContent extends React.Component {
     const { t } = this.props;
     return (
       <main>
-        <p className={this.state.notice ? 'failNotice' : ''}>{this.state.notice}</p>
+        <p className={'notice-' + this.state.notice?.type}>{this.state.notice?.message}</p>
         <h2>{t('mainPage.content')}</h2>
         <p>{t('mainPage.description')}</p>
       </main>

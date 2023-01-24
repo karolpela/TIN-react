@@ -280,7 +280,7 @@ class RentalForm extends React.Component {
           ? t('rental.form.add.confirm.text')
           : t('rental.form.edit.confirm.text');
 
-      return <Navigate to="/rentals" state={{ notice: notice }} />;
+      return <Navigate to="/rentals" state={{ notice: { message: notice, type: 'success' } }} />;
     }
 
     const errorsSummary = this.hasErrors() ? t('form.validation.messages.hasErrors') : '';

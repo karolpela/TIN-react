@@ -17,6 +17,11 @@ import LoginForm from './components/other/LoginForm';
 import { getCurrentUser } from './helpers/authHelper';
 import EmployeeOnlyRoute from './components/other/EmployeeOnlyRoute';
 import ProtectedRoute from './components/other/ProtectedRoute';
+import ServiceList from './components/service/ServiceList';
+import ServiceDetails from './components/service/ServiceDetails';
+import ServiceForm from './components/service/ServiceForm';
+import DeleteResource from './components/other/DeleteResource';
+import { deleteCustomerApiCall } from './apiCalls/customerApiCalls';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,6 +78,12 @@ class App extends React.Component {
               element={<EmployeeOnlyRoute component={<CustomerForm />} />}
             />
 
+            <Route
+              exact
+              path="/customers/delete/:id"
+              element={<DeleteResource apiCall={deleteCustomerApiCall} path="/customers" />}
+            />
+
             <Route exact path="/rentals" element={<ProtectedRoute component={<RentalList />} />} />
             <Route
               exact
@@ -88,6 +99,27 @@ class App extends React.Component {
               exact
               path="/rentals/edit/:rentalId"
               element={<EmployeeOnlyRoute component={<RentalForm />} />}
+            />
+
+            <Route
+              exact
+              path="/services"
+              element={<ProtectedRoute component={<ServiceList />} />}
+            />
+            <Route
+              exact
+              path="/services/add"
+              element={<EmployeeOnlyRoute component={<ServiceForm />} />}
+            />
+            <Route
+              exact
+              path="/services/details/:serviceId"
+              element={<ProtectedRoute component={<ServiceDetails />} />}
+            />
+            <Route
+              exact
+              path="/services/edit/:serviceId"
+              element={<EmployeeOnlyRoute component={<ServiceForm />} />}
             />
 
             <Route exact path="/equipment" element={<EquipmentList />} />
