@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { isAuthenticated } from '../../helpers/authHelper';
+import { isAdmin, isAuthenticated } from '../../helpers/authHelper';
 
 function RepairListTableRow(props) {
   const { t } = useTranslation();
@@ -24,11 +24,14 @@ function RepairListTableRow(props) {
                 {t('list.actions.edit')} <span className="material-symbols-outlined">edit</span>
               </Link>
             </li>
-            <li>
-              <Link to={`/repairs/delete/${repair._id}`} className="list-actions-button-delete">
-                {t('list.actions.delete')} <span className="material-symbols-outlined">delete</span>
-              </Link>
-            </li>
+            {isAdmin() && (
+              <li>
+                <Link to={`/repairs/delete/${repair._id}`} className="list-actions-button-delete">
+                  {t('list.actions.delete')}{' '}
+                  <span className="material-symbols-outlined">delete</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </td>
       )}

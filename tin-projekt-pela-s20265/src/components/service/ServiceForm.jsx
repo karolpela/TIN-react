@@ -255,7 +255,7 @@ class ServiceForm extends React.Component {
     const pageTitle =
       this.state.formMode === formMode.NEW
         ? t('service.form.add.pageTitle')
-        : t('service.form.add.pageTitle');
+        : t('service.form.edit.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 

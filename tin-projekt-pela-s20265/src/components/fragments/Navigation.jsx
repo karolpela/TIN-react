@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../../helpers/authHelper';
+import { getCurrentUser, isAuthenticated } from '../../helpers/authHelper';
 import withRouter from '../../helpers/routerHelper';
 import NavElements from './NavElements';
 
@@ -17,7 +17,9 @@ class Navigation extends React.Component {
   render() {
     const { t } = this.props;
     const loginLogoutLink = isAuthenticated() ? (
-      <button onClick={this.props.handleLogout}>{t('nav.logOut')}</button>
+      <button onClick={this.props.handleLogout}>
+        {t('nav.logOut') + `(${getCurrentUser().role})`}
+      </button>
     ) : (
       <Link to="/login">{t('nav.logIn')}</Link>
     );

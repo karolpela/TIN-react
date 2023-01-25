@@ -15,9 +15,9 @@ export function getRentalByIdApiCall(rentalId) {
   return promise;
 }
 
-export function getRentalsByCustomerCall(customerId) {
+export function getRentalsByCustomerCall(rentalId) {
   const options = createOptions('GET', null);
-  const url = `${rentalsBaseUrl}/customer/${customerId}`;
+  const url = `${rentalsBaseUrl}/rental/${rentalId}`;
   const promise = fetch(url, options);
   return promise;
 }
@@ -33,6 +33,13 @@ export function updateRentalApiCall(rentalId, rental) {
   const url = `${rentalsBaseUrl}/${rentalId}`;
   const rentalString = JSON.stringify(rental);
   const options = createOptions('PUT', rentalString);
+  const promise = fetch(url, options);
+  return promise;
+}
+
+export function deleteRentalApiCall(rentalId) {
+  const url = `${rentalsBaseUrl}/${rentalId}`;
+  const options = createOptions('DELETE', null);
   const promise = fetch(url, options);
   return promise;
 }

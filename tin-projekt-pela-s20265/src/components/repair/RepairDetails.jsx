@@ -1,7 +1,9 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
+import { getEmployeeRepairByIdApiCall } from '../../apiCalls/customerApiCalls';
 import { getRepairByIdApiCall } from '../../apiCalls/repairApiCalls';
+import { getCurrentUser, isAdmin } from '../../helpers/authHelper';
 import RepairDetailsData from './RepairDetailsData';
 
 class RepairDetails extends React.Component {
@@ -20,8 +22,10 @@ class RepairDetails extends React.Component {
   }
 
   fetchRepairDetails = () => {
+    const user = getCurrentUser();
+    let userId = user.userId;
     let repairId = parseInt(this.props.match.params.repairId);
-    getRepairByIdApiCall(repairId)
+    (isAdmin() ? getRepairByIdApiCall(repairId) : getEmployeeRepairByIdApiCall(userId, repairId))
       .then((res) => res.json())
       .then(
         (data) => {

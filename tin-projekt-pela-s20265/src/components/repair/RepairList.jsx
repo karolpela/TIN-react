@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
-import { getRepairsApiCall } from '../../apiCalls/repairApiCalls';
+import { getRepairsApiCall, getRepairsByEmployeeApiCall } from '../../apiCalls/repairApiCalls';
 import RepairListTable from './RepairListTable';
 import { withTranslation } from 'react-i18next';
-import { isEmployee } from '../../helpers/authHelper';
+import { getCurrentUser, isAdmin } from '../../helpers/authHelper';
 
 class RepairList extends React.Component {
   constructor(props) {
@@ -22,7 +22,8 @@ class RepairList extends React.Component {
   }
 
   fetchRepairList = () => {
-    getRepairsApiCall()
+    const user = getCurrentUser();
+    (isAdmin() ? getRepairsApiCall() : getRepairsByEmployeeApiCall(user.userId))
       .then((res) => res.json())
       .then(
         (data) => {
@@ -65,7 +66,7 @@ class RepairList extends React.Component {
         <h2>{t('repair.list.pageTitle')}</h2>
         <p className={'notice-' + this.state.notice?.type}>{this.state.notice?.message}</p>
         {content}
-        {isEmployee() && (
+        {isAdmin() && (
           <div className="section-buttons">
             <Link to="/repairs/add" className="button-add">
               {t('repair.list.addNew')}

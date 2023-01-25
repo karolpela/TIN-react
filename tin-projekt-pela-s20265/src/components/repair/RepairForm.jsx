@@ -1,14 +1,19 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router-dom';
-import { getCustomersApiCall } from '../../apiCalls/customerApiCalls';
+import {
+  addEmployeeRepairApiCall,
+  getCustomersApiCall,
+  getEmployeeRepairByIdApiCall,
+  updateEmployeeRepairApiCall
+} from '../../apiCalls/customerApiCalls';
 import {
   getRepairByIdApiCall,
   addRepairApiCall,
-  updateRepairApiCall,
-  getRepairStatuses as getRepairStatusesApiCall
+  getRepairStatusesApiCall
 } from '../../apiCalls/repairApiCalls';
 import { getServicesApiCall } from '../../apiCalls/serviceApiCalls';
+import { getCurrentUser, isAdmin } from '../../helpers/authHelper';
 import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import { checkRequired, checkTextLengthRange } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
@@ -130,7 +135,10 @@ class RepairForm extends React.Component {
   };
 
   fetchRepairDetails = () => {
-    getRepairByIdApiCall(this.props.match.params.repairId)
+    const user = getCurrentUser();
+    const userId = user.userId;
+    const repairId = this.props.match.params.repairId;
+    (isAdmin() ? getRepairByIdApiCall(repairId) : getEmployeeRepairByIdApiCall(userId, repairId))
       .then((res) => res.json())
       .then(
         (data) => {
@@ -173,6 +181,8 @@ class RepairForm extends React.Component {
   };
 
   handleSubmit = (event) => {
+    const user = getCurrentUser();
+    const userId = user.userId;
     event.preventDefault();
     const isValid = this.validateForm();
     if (isValid) {
@@ -186,7 +196,9 @@ class RepairForm extends React.Component {
       } else if (currentFormMode === formMode.EDIT) {
         console.log(repair);
         const repairId = this.props.match.params.repairId;
-        promise = updateRepairApiCall(repairId, repair);
+        promise = isAdmin()
+          ? addEmployeeRepairApiCall(repair)
+          : updateEmployeeRepairApiCall(repairId, userId, repair);
       }
 
       if (promise) {
@@ -311,33 +323,37 @@ class RepairForm extends React.Component {
       <main>
         <h2>{pageTitle}</h2>
         <form className="form" onSubmit={this.handleSubmit}>
-          <FormSelect
-            label={t('repair.fields.employee')}
-            options={this.state.allEmployees}
-            display={['firstName', 'lastName']}
-            required
-            error={this.state.errors.employeeId}
-            name="employeeId"
-            onChange={this.handleChange}
-            value={this.state.repair.employeeId ?? ''}
-          />
-          <FormSelect
-            label={t('repair.fields.service')}
-            options={this.state.openServices}
-            display={['_id', 'type', 'equipment.type', 'equipment.purpose', 'equipment.size']}
-            required
-            error={this.state.errors.serviceId}
-            name="serviceId"
-            onChange={this.handleChange}
-            value={this.state.repair.serviceId ?? ''}
-          />
+          {isAdmin() && (
+            <FormSelect
+              label={t('repair.fields.employee')}
+              options={this.state.allEmployees}
+              display={['firstName', 'lastName']}
+              required
+              error={this.state.errors.employeeId}
+              name="employeeId"
+              onChange={this.handleChange}
+              value={this.state.repair.employeeId ?? ''}
+            />
+          )}
+          {isAdmin() && (
+            <FormSelect
+              label={t('repair.fields.service')}
+              options={this.state.openServices}
+              display={['_id', 'type', 'equipment.type', 'equipment.purpose', 'equipment.size']}
+              required
+              error={this.state.errors.serviceId}
+              name="serviceId"
+              onChange={this.handleChange}
+              value={this.state.repair.serviceId ?? ''}
+            />
+          )}
           <FormInput
             type="text"
             label={t('repair.fields.problem')}
             required
             error={this.state.errors.problem}
             name="problem"
-            placeholder="2-60 chars"
+            placeholder={'2-60 ' + t('form.chars')}
             onChange={this.handleChange}
             value={this.state.repair.problem ?? ''}
           />
@@ -350,7 +366,7 @@ class RepairForm extends React.Component {
               error={this.state.errors.status}
               name="status"
               onChange={this.handleChange}
-              value={this.state.service.status ?? ''}
+              value={this.state.repair.status ?? ''}
             />
           )}
           <FormButtons

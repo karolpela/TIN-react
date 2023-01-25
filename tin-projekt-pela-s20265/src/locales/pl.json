@@ -13,6 +13,8 @@
     "customers": "Klienci",
     "equipment": "Sprzęt",
     "rentals": "Wypożyczenia",
+    "services": "Przeglądy",
+    "repairs": "Naprawy",
     "logging": "Logowanie",
     "logIn": "Zaloguj się",
     "logOut": "Wyloguj się",
@@ -27,6 +29,9 @@
     }
   },
   "form": {
+    "digits": "cyfr",
+    "chars": "znaków",
+    "select": "Wybierz",
     "actions": {
       "return": "Powrót",
       "edit": "Edytuj",
@@ -41,6 +46,7 @@
         "len_2_12": "Pole powinno zawierać od 2 do 12 znaków",
         "len_2_20": "Pole powinno zawierać od 2 do 20 znaków",
         "len_2_40": "Pole powinno zawierać od 2 do 40 znaków",
+        "len_2_60": "Pole powinno zawierać od 2 do 60 znaków",
         "isPhoneNo": "Pole powinno składać się z dokładnie 9 cyfr",
         "isShoeSize": "Pole powinno zawierać rozmiar w formacie np. 40.0 lub 40.5",
         "isInteger": "Pole powinno zawierać liczbę całkowitą",
@@ -126,6 +132,86 @@
       "equipment": "Sprzęt",
       "startDate": "Data wypożyczenia",
       "endDate": "Data zwrotu",
+      "dropdown": {
+        "chooseClient": "Wybierz klienta",
+        "chooseEquipment": "Wybierz sprzęt"
+      }
+    },
+    "list": {
+      "title": "Wypożyczenia",
+      "addNew": "Dodaj nowe wypożyczenie",
+      "noData": "Brak wypożyczeń w bazie",
+      "pageTitle": "Lista wypożyczeń"
+    },
+    "form": {
+      "add": {
+        "pageTitle": "Dodawanie wypożyczenia",
+        "btnLabel": "Dodaj wypożyczenie",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano wypożyczenie"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja wypożyczenia",
+        "btnLabel": "Zapisz zmiany",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano wypożyczenie"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły wypożyczenia"
+      }
+    }
+  },
+  "service": {
+    "fields": {
+      "number": "Numer",
+      "equipment": "Sprzęt",
+      "type": "Rodzaj",
+      "status": "Status",
+      "repair": "Naprawa",
+      "dropdown": {
+        "chooseEquipment": "Wybierz sprzęt",
+        "chooseType": "Wybierz rodzaj"
+      }
+    },
+    "list": {
+      "title": "Przeglądy",
+      "addNew": "Dodaj nowy przegląd",
+      "noData": "Brak przeglądów w bazie",
+      "pageTitle": "Lista przeglądów"
+    },
+    "form": {
+      "repairs": "Naprawy",
+      "add": {
+        "pageTitle": "Dodawanie przeglądu",
+        "btnLabel": "Dodaj przegląd",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie dodano przegląd"
+        }
+      },
+      "edit": {
+        "pageTitle": "Edycja przeglądu",
+        "btnLabel": "Zapisz zmiany",
+        "confirm": {
+          "header": "Potwierdzenie operacji",
+          "text": "Pomyślnie zaktualizowano przegląd"
+        }
+      },
+      "details": {
+        "pageTitle": "Szczegóły przeglądu"
+      }
+    }
+  },
+  "repair": {
+    "fields": {
+      "service": "Przegląd",
+      "employee": "Pracownik",
+      "problem": "Problem",
+      "status": "Status",
       "dropdown": {
         "chooseClient": "Wybierz klienta",
         "chooseEquipment": "Wybierz sprzęt"

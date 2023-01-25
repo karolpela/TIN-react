@@ -29,3 +29,10 @@ export function updateEquipmentApiCall(equipmentId, equipment) {
   const promise = fetch(url, options);
   return promise;
 }
+
+export function deleteEquipmentApiCall(equipmentId) {
+  const url = `${equipmentBaseUrl}/${equipmentId}`;
+  const options = createOptions('DELETE', null);
+  const promise = fetch(url, options);
+  return promise;
+}

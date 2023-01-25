@@ -25,6 +25,11 @@ import { deleteCustomerApiCall } from './apiCalls/customerApiCalls';
 import RepairForm from './components/repair/RepairForm';
 import RepairDetails from './components/repair/RepairDetails';
 import RepairList from './components/repair/RepairList';
+import AdminOnlyRoute from './components/other/AdminOnlyRoute';
+import { deleteEquipmentApiCall } from './apiCalls/equipmentApiCalls';
+import { deleteRepairApiCall } from './apiCalls/repairApiCalls';
+import { deleteServiceApiCall } from './apiCalls/serviceApiCalls';
+import { deleteRentalApiCall } from './apiCalls/rentalApiCalls';
 
 class App extends React.Component {
   constructor(props) {
@@ -84,7 +89,11 @@ class App extends React.Component {
             <Route
               exact
               path="/customers/delete/:id"
-              element={<DeleteResource apiCall={deleteCustomerApiCall} path="/customers" />}
+              element={
+                <EmployeeOnlyRoute
+                  component={<DeleteResource apiCall={deleteCustomerApiCall} path="/customers" />}
+                />
+              }
             />
 
             <Route exact path="/rentals" element={<ProtectedRoute component={<RentalList />} />} />
@@ -103,29 +112,52 @@ class App extends React.Component {
               path="/rentals/edit/:rentalId"
               element={<EmployeeOnlyRoute component={<RentalForm />} />}
             />
+            <Route
+              exact
+              path="/rentals/delete/:id"
+              element={
+                <EmployeeOnlyRoute
+                  component={<DeleteResource apiCall={deleteRentalApiCall} path="/rentals" />}
+                />
+              }
+            />
 
             <Route
               exact
               path="/services"
-              element={<ProtectedRoute component={<ServiceList />} />}
+              element={<AdminOnlyRoute component={<ServiceList />} />}
             />
             <Route
               exact
               path="/services/add"
-              element={<EmployeeOnlyRoute component={<ServiceForm />} />}
+              element={<AdminOnlyRoute component={<ServiceForm />} />}
             />
             <Route
               exact
               path="/services/details/:serviceId"
-              element={<ProtectedRoute component={<ServiceDetails />} />}
+              element={<AdminOnlyRoute component={<ServiceDetails />} />}
             />
             <Route
               exact
               path="/services/edit/:serviceId"
-              element={<EmployeeOnlyRoute component={<RepairForm />} />}
+              element={<AdminOnlyRoute component={<ServiceForm />} />}
             />
 
-            <Route exact path="/repairs" element={<ProtectedRoute component={<RepairList />} />} />
+            <Route
+              exact
+              path="/services/delete/:id"
+              element={
+                <AdminOnlyRoute
+                  component={<DeleteResource apiCall={deleteServiceApiCall} path="/services" />}
+                />
+              }
+            />
+
+            <Route
+              exact
+              path="/repairs"
+              element={<EmployeeOnlyRoute component={<RepairList />} />}
+            />
             <Route
               exact
               path="/repairs/add"
@@ -134,7 +166,7 @@ class App extends React.Component {
             <Route
               exact
               path="/repairs/details/:repairId"
-              element={<ProtectedRoute component={<RepairDetails />} />}
+              element={<EmployeeOnlyRoute component={<RepairDetails />} />}
             />
             <Route
               exact
@@ -142,10 +174,29 @@ class App extends React.Component {
               element={<EmployeeOnlyRoute component={<RepairForm />} />}
             />
 
+            <Route
+              exact
+              path="/repairs/delete/:id"
+              element={
+                <EmployeeOnlyRoute
+                  component={<DeleteResource apiCall={deleteRepairApiCall} path="/repairs" />}
+                />
+              }
+            />
+
             <Route exact path="/equipment" element={<EquipmentList />} />
             <Route exact path="/equipment/add" element={<EquipmentForm />} />
             <Route exact path="/equipment/details/:equipmentId" element={<EquipmentDetails />} />
             <Route exact path="/equipment/edit/:equipmentId" element={<EquipmentForm />} />
+            <Route
+              exact
+              path="/equipment/delete/:id"
+              element={
+                <EmployeeOnlyRoute
+                  component={<DeleteResource apiCall={deleteEquipmentApiCall} path="/equipment" />}
+                />
+              }
+            />
           </Routes>
         </BrowserRouter>
         <Footer />

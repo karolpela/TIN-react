@@ -15,15 +15,15 @@ export function getRepairByIdApiCall(repairId) {
   return promise;
 }
 
-export function getRepairStatuses() {
-  const url = `${repairsBaseUrl}/statuses`;
+export function getRepairsByEmployeeApiCall(userId) {
+  const url = `${repairsBaseUrl}/employee/${userId}`;
   const options = createOptions('GET', null);
   const promise = fetch(url, options);
   return promise;
 }
 
-export function getRepairRentalByIdApiCall(repairId, rentalId) {
-  const url = `${repairsBaseUrl}/${repairId}/rentals/${rentalId}`;
+export function getRepairStatusesApiCall() {
+  const url = `${repairsBaseUrl}/statuses`;
   const options = createOptions('GET', null);
   const promise = fetch(url, options);
   return promise;
@@ -43,3 +43,26 @@ export function updateRepairApiCall(repairId, repair) {
   const promise = fetch(url, options);
   return promise;
 }
+
+export function deleteRepairApiCall(repairId) {
+  const url = `${repairsBaseUrl}/${repairId}`;
+  const options = createOptions('DELETE', null);
+  const promise = fetch(url, options);
+  return promise;
+}
+
+// export function addRepairByEmployeeApiCall(userId, repair) {
+//   const url = `${repairsBaseUrl}/employee/${userId}`;
+//   const repairString = JSON.stringify(repair);
+//   const options = createOptions('POST', repairString);
+//   const promise = fetch(url, options);
+//   return promise;
+// }
+
+// export function updateRepairByEmployeeApiCall(repairId, userId, repair) {
+//   const url = `${repairsBaseUrl}/employee/${userId}`;
+//   const repairString = JSON.stringify(repair);
+//   const options = createOptions('PUT', repairString);
+//   const promise = fetch(url, options);
+//   return promise;
+// }

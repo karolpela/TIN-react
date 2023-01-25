@@ -43,6 +43,7 @@ class LoginForm extends React.Component {
     event.preventDefault();
     const isValid = this.validateForm();
     const navigate = this.props.router.navigate;
+    const { t } = this.props;
     if (isValid) {
       const user = this.state.user;
       let response;
@@ -57,7 +58,10 @@ class LoginForm extends React.Component {
               if (data.token) {
                 const userString = JSON.stringify(data);
                 this.props.handleLogin(userString);
-                navigate(-1);
+                navigate('/', {
+                  replace: true,
+                  state: { notice: { message: t('login.successful'), type: 'success' } }
+                });
               }
             } else if (response.status === 401) {
               console.log(401);

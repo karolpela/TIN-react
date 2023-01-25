@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { isEmployee } from '../../helpers/authHelper';
+import { isAdmin, isEmployee } from '../../helpers/authHelper';
 import { useTranslation } from 'react-i18next';
 
 function NavElements() {
@@ -19,9 +19,11 @@ function NavElements() {
         <li>
           <Link to="/equipment">{t('nav.equipment')}</Link>
         </li>
-        <li>
-          <Link to="/services">{t('nav.services')}</Link>
-        </li>
+        {isAdmin() && (
+          <li>
+            <Link to="/services">{t('nav.services')}</Link>
+          </li>
+        )}
         <li>
           <Link to="/repairs">{t('nav.repairs')}</Link>
         </li>

@@ -224,7 +224,7 @@ class EquipmentForm extends React.Component {
             required
             error={this.state.errors.type}
             name="type"
-            placeholder="2-12 chars"
+            placeholder={'2-12 ' + t('form.chars')}
             onChange={this.handleChange}
             value={this.state.equipment.type ?? ''}
           />
@@ -234,7 +234,7 @@ class EquipmentForm extends React.Component {
             required
             error={this.state.errors.purpose}
             name="purpose"
-            placeholder="2-20 chars"
+            placeholder={'2-20 ' + t('form.chars')}
             onChange={this.handleChange}
             value={this.state.equipment.purpose ?? ''}
           />

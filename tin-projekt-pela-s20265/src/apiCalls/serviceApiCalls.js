@@ -36,3 +36,10 @@ export function updateServiceApiCall(serviceId, service) {
   const promise = fetch(url, options);
   return promise;
 }
+
+export function deleteServiceApiCall(serviceId) {
+  const url = `${servicesBaseUrl}/${serviceId}`;
+  const options = createOptions('DELETE', null);
+  const promise = fetch(url, options);
+  return promise;
+}

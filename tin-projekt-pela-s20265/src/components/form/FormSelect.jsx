@@ -1,8 +1,14 @@
+import { useTranslation } from 'react-i18next';
+import { getValidationErrorKey } from '../../helpers/formHelper';
+
 function FormSelect(props) {
   const className = props.error === '' ? '' : 'error-input';
+  const error = props.error;
   const name = props.name;
   const errorSpanId = 'error' + name[0].toUpperCase() + name.slice(1);
-
+  const { t } = useTranslation();
+  const errorKey = getValidationErrorKey(error);
+  const translatedErrorMessage = t(errorKey);
   return (
     <>
       <label htmlFor={props.name}>
@@ -21,7 +27,7 @@ function FormSelect(props) {
         onChange={props.onChange}
       >
         {/* TODO show this*/}
-        <option>---select---</option>
+        <option>{t('form.select')}</option>
         {props.options.map((opt) => (
           <option key={opt._id} value={opt._id}>
             {props.display
@@ -44,7 +50,7 @@ function FormSelect(props) {
         ))}
       </select>
       <span id={errorSpanId} className="errors-text">
-        {props.error}
+        {translatedErrorMessage}
       </span>
     </>
   );

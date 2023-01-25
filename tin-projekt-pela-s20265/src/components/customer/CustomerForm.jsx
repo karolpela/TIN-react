@@ -6,6 +6,7 @@ import {
   addCustomerApiCall,
   updateCustomerApiCall
 } from '../../apiCalls/customerApiCalls';
+import { isEmployee } from '../../helpers/authHelper';
 import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import { checkRequired, checkTextLengthRange, checkPhoneNo } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
@@ -20,12 +21,14 @@ class CustomerForm extends React.Component {
       customer: {
         firstName: '',
         lastName: '',
-        phoneNo: ''
+        phoneNo: '',
+        password: ''
       },
       errors: {
         firstName: '',
         lastName: '',
-        phoneNo: ''
+        phoneNo: '',
+        password: ''
       },
       formMode: currentFormMode,
       redirect: false,
@@ -50,6 +53,7 @@ class CustomerForm extends React.Component {
               message: data.message
             });
           } else {
+            data.password = '';
             this.setState({
               customer: data,
               message: null
@@ -162,6 +166,12 @@ class CustomerForm extends React.Component {
       }
     }
 
+    if (this.state.formMode == formMode.NEW && fieldName === 'password') {
+      if (!checkRequired(fieldValue)) {
+        errorMessage = formValidationKeys.notEmpty;
+      }
+    }
+
     return errorMessage;
   };
 
@@ -210,7 +220,7 @@ class CustomerForm extends React.Component {
     const pageTitle =
       this.state.formMode === formMode.NEW
         ? t('customer.form.add.pageTitle')
-        : t('customer.form.add.pageTitle');
+        : t('customer.form.edit.pageTitle');
 
     const globalErrorMessage = errorsSummary || fetchError || this.state.message;
 
@@ -224,7 +234,7 @@ class CustomerForm extends React.Component {
             required
             error={this.state.errors.firstName}
             name="firstName"
-            placeholder="2-20 chars"
+            placeholder={'2-20 ' + t('form.chars')}
             onChange={this.handleChange}
             value={this.state.customer.firstName ?? ''}
           />
@@ -234,7 +244,7 @@ class CustomerForm extends React.Component {
             required
             error={this.state.errors.lastName}
             name="lastName"
-            placeholder="2-40 chars"
+            placeholder={'2-40 ' + t('form.chars')}
             onChange={this.handleChange}
             value={this.state.customer.lastName ?? ''}
           />
@@ -244,10 +254,22 @@ class CustomerForm extends React.Component {
             required
             error={this.state.errors.phoneNo}
             name="phoneNo"
-            placeholder="9 digits"
+            placeholder={'9 ' + t('form.digits')}
             onChange={this.handleChange}
             value={this.state.customer.phoneNo ?? ''}
           />
+          {isEmployee() && this.state.formMode === formMode.NEW && (
+            <FormInput
+              type="password"
+              label={t('customer.fields.password')}
+              required
+              error={this.state.errors.password}
+              name="password"
+              placeholder={t('customer.fields.password')}
+              onChange={this.handleChange}
+              value={this.state.customer.password ?? ''}
+            />
+          )}
           <FormButtons
             formMode={this.state.formMode}
             formType="customer"

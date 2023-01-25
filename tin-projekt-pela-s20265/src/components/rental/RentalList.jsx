@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import {
-  getRentalsByCustomerCall as getRentalByCustomerApiCall,
+  getRentalsByCustomerCall as getRentalsByCustomerApiCall,
   getRentalsApiCall
 } from '../../apiCalls/rentalApiCalls';
 import RentalListTable from './RentalListTable';
@@ -26,7 +26,7 @@ class RentalList extends React.Component {
 
   fetchRentalList = () => {
     const user = getCurrentUser();
-    (isEmployee() ? getRentalsApiCall() : getRentalByCustomerApiCall(user.userId))
+    (isEmployee() ? getRentalsApiCall() : getRentalsByCustomerApiCall(user.userId))
       .then((res) => res.json())
       .then(
         (data) => {

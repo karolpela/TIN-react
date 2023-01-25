@@ -3,7 +3,6 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import { getServicesApiCall } from '../../apiCalls/serviceApiCalls';
 import ServiceListTable from './ServiceListTable';
 import { withTranslation } from 'react-i18next';
-import { isEmployee } from '../../helpers/authHelper';
 
 class ServiceList extends React.Component {
   constructor(props) {
@@ -65,13 +64,11 @@ class ServiceList extends React.Component {
         <h2>{t('service.list.pageTitle')}</h2>
         <p className={'notice-' + this.state.notice?.type}>{this.state.notice?.message}</p>
         {content}
-        {isEmployee() && (
-          <div className="section-buttons">
-            <Link to="/services/add" className="button-add">
-              {t('service.list.addNew')}
-            </Link>
-          </div>
-        )}
+        <div className="section-buttons">
+          <Link to="/services/add" className="button-add">
+            {t('service.list.addNew')}
+          </Link>
+        </div>
       </main>
     );
   }
