@@ -22,6 +22,9 @@ import ServiceDetails from './components/service/ServiceDetails';
 import ServiceForm from './components/service/ServiceForm';
 import DeleteResource from './components/other/DeleteResource';
 import { deleteCustomerApiCall } from './apiCalls/customerApiCalls';
+import RepairForm from './components/repair/RepairForm';
+import RepairDetails from './components/repair/RepairDetails';
+import RepairList from './components/repair/RepairList';
 
 class App extends React.Component {
   constructor(props) {
@@ -119,7 +122,24 @@ class App extends React.Component {
             <Route
               exact
               path="/services/edit/:serviceId"
-              element={<EmployeeOnlyRoute component={<ServiceForm />} />}
+              element={<EmployeeOnlyRoute component={<RepairForm />} />}
+            />
+
+            <Route exact path="/repairs" element={<ProtectedRoute component={<RepairList />} />} />
+            <Route
+              exact
+              path="/repairs/add"
+              element={<EmployeeOnlyRoute component={<RepairForm />} />}
+            />
+            <Route
+              exact
+              path="/repairs/details/:repairId"
+              element={<ProtectedRoute component={<RepairDetails />} />}
+            />
+            <Route
+              exact
+              path="/repairs/edit/:repairId"
+              element={<EmployeeOnlyRoute component={<RepairForm />} />}
             />
 
             <Route exact path="/equipment" element={<EquipmentList />} />

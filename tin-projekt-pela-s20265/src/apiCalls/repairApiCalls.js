@@ -1,38 +1,45 @@
 import { createOptions } from '../helpers/authHelper';
 
-const customersBaseUrl = 'http://localhost:3000/api/customers';
+const repairsBaseUrl = 'http://localhost:3000/api/repairs';
 
-export function getCustomersApiCall() {
+export function getRepairsApiCall() {
   const options = createOptions('GET', null);
-  const promise = fetch(customersBaseUrl, options);
+  const promise = fetch(repairsBaseUrl, options);
   return promise;
 }
 
-export function getCustomerByIdApiCall(customerId) {
-  const url = `${customersBaseUrl}/${customerId}`;
-  const options = createOptions('GET', null);
-  const promise = fetch(url, options);
-  return promise;
-}
-
-export function getCustomerRentalByIdApiCall(customerId, rentalId) {
-  const url = `${customersBaseUrl}/${customerId}/rentals/${rentalId}`;
+export function getRepairByIdApiCall(repairId) {
+  const url = `${repairsBaseUrl}/${repairId}`;
   const options = createOptions('GET', null);
   const promise = fetch(url, options);
   return promise;
 }
 
-export function addCustomerApiCall(customer) {
-  const customerString = JSON.stringify(customer);
-  const options = createOptions('POST', customerString);
-  const promise = fetch(customersBaseUrl, options);
+export function getRepairStatuses() {
+  const url = `${repairsBaseUrl}/statuses`;
+  const options = createOptions('GET', null);
+  const promise = fetch(url, options);
   return promise;
 }
 
-export function updateCustomerApiCall(customerId, customer) {
-  const url = `${customersBaseUrl}/${customerId}`;
-  const customerString = JSON.stringify(customer);
-  const options = createOptions('PUT', customerString);
+export function getRepairRentalByIdApiCall(repairId, rentalId) {
+  const url = `${repairsBaseUrl}/${repairId}/rentals/${rentalId}`;
+  const options = createOptions('GET', null);
+  const promise = fetch(url, options);
+  return promise;
+}
+
+export function addRepairApiCall(repair) {
+  const repairString = JSON.stringify(repair);
+  const options = createOptions('POST', repairString);
+  const promise = fetch(repairsBaseUrl, options);
+  return promise;
+}
+
+export function updateRepairApiCall(repairId, repair) {
+  const url = `${repairsBaseUrl}/${repairId}`;
+  const repairString = JSON.stringify(repair);
+  const options = createOptions('PUT', repairString);
   const promise = fetch(url, options);
   return promise;
 }

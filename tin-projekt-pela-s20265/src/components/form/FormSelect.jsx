@@ -24,7 +24,22 @@ function FormSelect(props) {
         <option>---select---</option>
         {props.options.map((opt) => (
           <option key={opt._id} value={opt._id}>
-            {props.display.map((d) => opt[d]).join(' ')}
+            {props.display
+              .map((d) => {
+                d = d.split('.');
+                let label;
+                let prop = d[0];
+                if (d.length === 1) {
+                  //allow access to props nested on 1 level
+                  label = opt[prop];
+                } else {
+                  let nestedProp = d[1];
+                  let obj = opt[prop];
+                  label = obj[nestedProp];
+                }
+                return label;
+              })
+              .join(' ')}
           </option>
         ))}
       </select>

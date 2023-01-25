@@ -2,33 +2,30 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { isAuthenticated } from '../../helpers/authHelper';
 
-function ServiceListTableRow(props) {
+function RepairListTableRow(props) {
   const { t } = useTranslation();
-  const service = props.serviceData;
+  const repair = props.repairData;
   return (
     <tr>
-      <td>{service._id}</td>
-      <td>
-        {service.equipment.type + ' ' + service.equipment.purpose + ' ' + service.equipment.size}
-      </td>
-      <td>{service.type}</td>
-      <td>{service.status}</td>
-      {/* TODO add state */}
+      <td>{t('service.fields.number') + ' ' + repair.service._id + ' ' + repair.service.type}</td>
+      <td>{repair.employee.firstName + ' ' + repair.employee.lastName}</td>
+      <td>{repair.problem}</td>
+      <td>{repair.status}</td>
       {isAuthenticated() && (
         <td>
           <ul className="list-actions">
             <li>
-              <Link to={`/services/details/${service._id}`} className="list-actions-button-details">
+              <Link to={`/repairs/details/${repair._id}`} className="list-actions-button-details">
                 {t('list.actions.details')} <span className="material-symbols-outlined">info</span>
               </Link>
             </li>
             <li>
-              <Link to={`/services/edit/${service._id}`} className="list-actions-button-edit">
+              <Link to={`/repairs/edit/${repair._id}`} className="list-actions-button-edit">
                 {t('list.actions.edit')} <span className="material-symbols-outlined">edit</span>
               </Link>
             </li>
             <li>
-              <Link to={`/services/delete/${service._id}`} className="list-actions-button-delete">
+              <Link to={`/repairs/delete/${repair._id}`} className="list-actions-button-delete">
                 {t('list.actions.delete')} <span className="material-symbols-outlined">delete</span>
               </Link>
             </li>
@@ -39,4 +36,4 @@ function ServiceListTableRow(props) {
   );
 }
 
-export default ServiceListTableRow;
+export default RepairListTableRow;

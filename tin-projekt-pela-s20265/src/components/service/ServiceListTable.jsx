@@ -11,13 +11,19 @@ function ServiceListTable(props) {
           <th>{t('service.fields.number')}</th>
           <th>{t('service.fields.equipment')}</th>
           <th>{t('service.fields.type')}</th>
+          <th>{t('service.fields.status')}</th>
           <th>{t('list.actions.title')}</th>
         </tr>
       </thead>
       <tbody>
-        {services.map((service) => (
-          <ServiceListTableRow serviceData={service} key={service._id} />
-        ))}
+        {services
+          .sort((a, b) => {
+            let order = ['w trakcie', 'nowy', 'zakończony'];
+            return order.indexOf(a.status) - order.indexOf(b.status);
+          })
+          .map((service) => (
+            <ServiceListTableRow serviceData={service} key={service._id} />
+          ))}
       </tbody>
     </table>
   );

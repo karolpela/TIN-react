@@ -2,9 +2,12 @@ import { createOptions } from '../helpers/authHelper';
 
 const customersBaseUrl = 'http://localhost:3000/api/customers';
 
-export function getCustomersApiCall() {
+export function getCustomersApiCall(roles) {
+  const url = roles
+    ? `${customersBaseUrl}?${roles.map((r) => 'role=' + r).join('&')}`
+    : customersBaseUrl;
   const options = createOptions('GET', null);
-  const promise = fetch(customersBaseUrl, options);
+  const promise = fetch(url, options);
   return promise;
 }
 

@@ -8,6 +8,7 @@ export const formValidationKeys = {
   len_2_12: 'len_2_12',
   len_2_20: 'len_2_20',
   len_2_40: 'len_2_40',
+  len_2_60: 'len_2_60',
   isPhoneNo: 'isPhoneNo',
   isShoeSize: 'isShoeSize',
   isInteger: 'isInteger',

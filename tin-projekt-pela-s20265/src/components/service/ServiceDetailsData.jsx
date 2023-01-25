@@ -30,7 +30,7 @@ function ServiceDetailsData(props) {
           <tbody>
             {service.repairs
               .sort((a, b) => {
-                let order = ['w trakcie', 'zgloszona', 'zakonczona'];
+                let order = ['w trakcie', 'zgłoszona', 'zakończona'];
                 return order.indexOf(a.status) - order.indexOf(b.status);
               })
               .map((repair) => (

@@ -12,7 +12,9 @@
   - [ ] create views
 - [ ] rename "Customer" table to "User" to avoid confusion
 - [x] allow deletion of resources
+  - [ ] add delete routes
 - [ ] update English localization
+- [ ] hide Repair table rows on window resize
 - [x] use Polish chars in data
 
 ## Low priority
