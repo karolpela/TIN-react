@@ -4,13 +4,15 @@ import { Navigate, useParams } from 'react-router-dom';
 import {
   getCustomerByIdApiCall,
   addCustomerApiCall,
-  updateCustomerApiCall
+  updateCustomerApiCall,
+  getCustomersRolesApiCall
 } from '../../apiCalls/customerApiCalls';
-import { isEmployee } from '../../helpers/authHelper';
+import { isAdmin } from '../../helpers/authHelper';
 import formMode, { formValidationKeys } from '../../helpers/formHelper';
 import { checkRequired, checkTextLengthRange, checkPhoneNo } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
 import FormInput from '../form/FormInput';
+import FormSelect from '../form/FormSelect';
 
 class CustomerForm extends React.Component {
   constructor(props) {
@@ -18,17 +20,20 @@ class CustomerForm extends React.Component {
     const currentFormMode = this.props.match.params.customerId ? formMode.EDIT : formMode.NEW;
 
     this.state = {
+      allRoles: [],
       customer: {
         firstName: '',
         lastName: '',
         phoneNo: '',
-        password: ''
+        password: '',
+        role: 'customer' //default role
       },
       errors: {
         firstName: '',
         lastName: '',
         phoneNo: '',
-        password: ''
+        password: '',
+        role: ''
       },
       formMode: currentFormMode,
       redirect: false,
@@ -38,6 +43,9 @@ class CustomerForm extends React.Component {
 
   componentDidMount = () => {
     const currentFormMode = this.state.formMode;
+    if (isAdmin()) {
+      this.fetchAllRoles();
+    }
     if (currentFormMode === formMode.EDIT) {
       this.fetchCustomerDetails();
     }
@@ -66,6 +74,33 @@ class CustomerForm extends React.Component {
         (error) => {
           this.setState({
             isLoaded: true,
+            error
+          });
+        }
+      );
+  };
+
+  fetchAllRoles = () => {
+    getCustomersRolesApiCall()
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          if (data.message) {
+            this.setState({
+              message: data.message
+            });
+          } else {
+            this.setState({
+              allRoles: data.map((r) => ({
+                // eslint-disable-next-line no-unused-labels
+                _id: r
+              })),
+              message: null
+            });
+          }
+        },
+        (error) => {
+          this.setState({
             error
           });
         }
@@ -172,6 +207,12 @@ class CustomerForm extends React.Component {
       }
     }
 
+    if (isAdmin() && fieldName === 'role') {
+      if (!checkRequired(fieldValue)) {
+        errorMessage = formValidationKeys.notEmpty;
+      }
+    }
+
     return errorMessage;
   };
 
@@ -258,7 +299,7 @@ class CustomerForm extends React.Component {
             onChange={this.handleChange}
             value={this.state.customer.phoneNo ?? ''}
           />
-          {isEmployee() && this.state.formMode === formMode.NEW && (
+          {this.state.formMode === formMode.NEW && (
             <FormInput
               type="password"
               label={t('customer.fields.password')}
@@ -268,6 +309,18 @@ class CustomerForm extends React.Component {
               placeholder={t('customer.fields.password')}
               onChange={this.handleChange}
               value={this.state.customer.password ?? ''}
+            />
+          )}
+          {isAdmin() && (
+            <FormSelect
+              label={t('customer.fields.role')}
+              options={this.state.allRoles}
+              display={['_id']}
+              required
+              error={this.state.errors.role}
+              name="role"
+              onChange={this.handleChange}
+              value={this.state.customer.role ?? ''}
             />
           )}
           <FormButtons

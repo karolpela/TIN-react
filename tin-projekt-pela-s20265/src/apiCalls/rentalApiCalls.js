@@ -15,9 +15,9 @@ export function getRentalByIdApiCall(rentalId) {
   return promise;
 }
 
-export function getRentalsByCustomerCall(rentalId) {
+export function getRentalsByCustomerCall(userId) {
   const options = createOptions('GET', null);
-  const url = `${rentalsBaseUrl}/rental/${rentalId}`;
+  const url = `${rentalsBaseUrl}/customer/${userId}`;
   const promise = fetch(url, options);
   return promise;
 }

@@ -51,16 +51,23 @@
         "isShoeSize": "Pole powinno zawierać rozmiar w formacie np. 40.0 lub 40.5",
         "isInteger": "Pole powinno zawierać liczbę całkowitą",
         "notInFuture": "Data nie może być z przyszłości",
-        "afterOrEqualToStartDate": "Data musi być równa lub późniejsza od daty wypożyczenia"
+        "afterOrEqualToStartDate": "Data musi być równa lub późniejsza od daty wypożyczenia",
+        "wrongPhoneNoOrPassword": "Nieprawidłowy numer telefonu lub hasło"
       }
     }
   },
   "customer": {
+    "roles": {
+      "customer": "Klient",
+      "employee": "Pracownik",
+      "admin": "Administrator"
+    },
     "fields": {
       "firstName": "Imię",
       "lastName": "Nazwisko",
       "phoneNo": "Numer telefonu",
-      "password": "Hasło"
+      "password": "Hasło",
+      "role": "Rola"
     },
     "list": {
       "title": "Klienci",
@@ -218,36 +225,37 @@
       }
     },
     "list": {
-      "title": "Wypożyczenia",
-      "addNew": "Dodaj nowe wypożyczenie",
-      "noData": "Brak wypożyczeń w bazie",
-      "pageTitle": "Lista wypożyczeń"
+      "title": "Naprawy",
+      "addNew": "Dodaj nową naprawę",
+      "noData": "Brak napraw w bazie",
+      "pageTitle": "Lista napraw"
     },
     "form": {
       "add": {
-        "pageTitle": "Dodawanie wypożyczenia",
-        "btnLabel": "Dodaj wypożyczenie",
+        "pageTitle": "Dodawanie naprawy",
+        "btnLabel": "Dodaj naprawę",
         "confirm": {
           "header": "Potwierdzenie operacji",
-          "text": "Pomyślnie dodano wypożyczenie"
+          "text": "Pomyślnie dodano naprawę"
         }
       },
       "edit": {
-        "pageTitle": "Edycja wypożyczenia",
+        "pageTitle": "Edycja naprawy",
         "btnLabel": "Zapisz zmiany",
         "confirm": {
           "header": "Potwierdzenie operacji",
-          "text": "Pomyślnie zaktualizowano wypożyczenie"
+          "text": "Pomyślnie zaktualizowano naprawę"
         }
       },
       "details": {
-        "pageTitle": "Szczegóły wypożyczenia"
+        "pageTitle": "Szczegóły naprwy"
       }
     }
   },
   "auth": {
     "pageTitle": "Logowanie",
-    "noPermissionsRedirect": "Błąd! Brak uprawnień do wyświetlenia strony. Nastąpiło przekierowanie."
+    "noPermissionsRedirect": "Błąd! Brak uprawnień do wyświetlenia strony. Nastąpiło przekierowanie.",
+    "loginSuccessful": "Zalogowano pomyślnie. Witaj "
   },
   "id": "Id"
 }

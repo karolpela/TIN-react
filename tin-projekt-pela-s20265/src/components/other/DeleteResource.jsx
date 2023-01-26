@@ -20,7 +20,7 @@ function DeleteResource(props) {
           response = data;
           if (response.status === 200) {
             navigate(path, {
-              state: { notice: { message: t('delete.success'), type: 'fail' } },
+              state: { notice: { message: t('delete.success'), type: 'success' } },
               replace: true
             });
           } else {

@@ -15,10 +15,13 @@ class Navigation extends React.Component {
   };
 
   render() {
+    const user = getCurrentUser();
     const { t } = this.props;
     const loginLogoutLink = isAuthenticated() ? (
       <button onClick={this.props.handleLogout}>
-        {t('nav.logOut') + `(${getCurrentUser().role})`}
+        {`${t('nav.logOut')} (${user.firstName} ${user.lastName} - ${t(
+          'customer.roles.' + user.role
+        )})`}
       </button>
     ) : (
       <Link to="/login">{t('nav.logIn')}</Link>

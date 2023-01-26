@@ -10,7 +10,8 @@ import {
 import {
   getRepairByIdApiCall,
   addRepairApiCall,
-  getRepairStatusesApiCall
+  getRepairStatusesApiCall,
+  updateRepairApiCall
 } from '../../apiCalls/repairApiCalls';
 import { getServicesApiCall } from '../../apiCalls/serviceApiCalls';
 import { getCurrentUser, isAdmin } from '../../helpers/authHelper';
@@ -192,12 +193,12 @@ class RepairForm extends React.Component {
       let promise, response;
 
       if (currentFormMode === formMode.NEW) {
-        promise = addRepairApiCall(repair);
+        promise = isAdmin() ? addRepairApiCall(repair) : addEmployeeRepairApiCall(repair);
       } else if (currentFormMode === formMode.EDIT) {
         console.log(repair);
         const repairId = this.props.match.params.repairId;
         promise = isAdmin()
-          ? addEmployeeRepairApiCall(repair)
+          ? updateRepairApiCall(repairId, repair)
           : updateEmployeeRepairApiCall(repairId, userId, repair);
       }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { loginApiCall } from '../../apiCalls/authApiCalls';
-import { formValidationKeys } from '../../helpers/formHelper';
+import { formValidationKeys, getValidationErrorKey } from '../../helpers/formHelper';
 import withRouter from '../../helpers/routerHelper';
 import { checkRequired } from '../../helpers/validationCommon';
 import FormButtons from '../form/FormButtons';
@@ -60,12 +60,19 @@ class LoginForm extends React.Component {
                 this.props.handleLogin(userString);
                 navigate('/', {
                   replace: true,
-                  state: { notice: { message: t('login.successful'), type: 'success' } }
+                  state: {
+                    notice: {
+                      message: `${t('auth.loginSuccessful')} ${data.firstName} ${data.lastName}!`,
+                      type: 'success'
+                    }
+                  }
                 });
               }
             } else if (response.status === 401) {
               console.log(401);
-              this.setState({ message: data.message });
+              this.setState({
+                message: t(getValidationErrorKey(data.message))
+              });
             }
           },
           (error) => {

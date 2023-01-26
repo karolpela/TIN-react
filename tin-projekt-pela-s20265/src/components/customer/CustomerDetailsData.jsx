@@ -18,6 +18,9 @@ function CustomerDetailsData(props) {
         <p>
           {t('customer.fields.phoneNo')}: {customer.phoneNo}
         </p>
+        <p>
+          {t('customer.fields.role')}: {t('customer.roles.' + customer.role)}
+        </p>
         <h2>{t('customer.form.rentals')}</h2>
         <table className="table-list">
           <thead>
@@ -52,6 +55,9 @@ function CustomerDetailsData(props) {
         </p>
         <p>
           {t('customer.fields.phoneNo')}: {customer.phoneNo}
+        </p>
+        <p>
+          {t('customer.fields.role')}: {t('customer.roles.' + customer.role)}
         </p>
         <h3>{t('rental.list.noData')}</h3>
       </React.Fragment>

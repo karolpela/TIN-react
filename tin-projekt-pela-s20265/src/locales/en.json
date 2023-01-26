@@ -13,6 +13,8 @@
     "customers": "Customers",
     "equipment": "Equipment",
     "rentals": "Rentals",
+    "services": "Services",
+    "repairs": "Repairs",
     "logging": "Login",
     "logIn": "Log in",
     "logOut": "Log out",
@@ -27,6 +29,9 @@
     }
   },
   "form": {
+    "digits": "digits",
+    "chars": "characters",
+    "select": "Choose",
     "actions": {
       "return": "Return",
       "edit": "Edit",
@@ -45,16 +50,23 @@
         "isShoeSize": "Field must contain size e.g. 40.0 or 40.5",
         "isInteger": "Field must contain an integer",
         "notInFuture": "Date must not be from the future",
-        "afterOrEqualToStartDate": "Date must greater or equal to start date"
+        "afterOrEqualToStartDate": "Date must greater or equal to start date",
+        "wrongPhoneNoOrPassword": "Wrong phone number or password"
       }
     }
   },
   "customer": {
+    "roles": {
+      "customer": "Customer",
+      "employee": "Employee",
+      "admin": "Administrator"
+    },
     "fields": {
       "firstName": "First name",
       "lastName": "Last name",
       "phoneNo": "Phone number",
-      "password": "Password"
+      "password": "Password",
+      "role": "Role"
     },
     "list": {
       "title": "Customers",
@@ -159,8 +171,90 @@
       }
     }
   },
+  "service": {
+    "fields": {
+      "number": "Number",
+      "equipment": "Equipment",
+      "type": "Type",
+      "status": "Status",
+      "repair": "Naprawa",
+      "dropdown": {
+        "chooseEquipment": "Choose equipment",
+        "chooseType": "Choose type"
+      }
+    },
+    "list": {
+      "title": "Services",
+      "addNew": "Add new service",
+      "noData": "No services",
+      "pageTitle": "Service list"
+    },
+    "form": {
+      "repairs": "Repairs",
+      "add": {
+        "pageTitle": "Adding new service",
+        "btnLabel": "Add service",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Service added successfully"
+        }
+      },
+      "edit": {
+        "pageTitle": "Editing service",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Service updated successfully"
+        }
+      },
+      "details": {
+        "pageTitle": "Service details"
+      }
+    }
+  },
+  "repair": {
+    "fields": {
+      "service": "Service",
+      "employee": "Employee",
+      "problem": "Problem",
+      "status": "Status",
+      "dropdown": {
+        "chooseClient": "Choose client",
+        "chooseEquipment": "Choose equipment"
+      }
+    },
+    "list": {
+      "title": "Repairs",
+      "addNew": "Add new repair",
+      "noData": "No repairs",
+      "pageTitle": "Repair list"
+    },
+    "form": {
+      "add": {
+        "pageTitle": "Add new repair",
+        "btnLabel": "Add repair",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Repair added successfully"
+        }
+      },
+      "edit": {
+        "pageTitle": "Editing repair",
+        "btnLabel": "Save changes",
+        "confirm": {
+          "header": "Confirmation",
+          "text": "Repair updated successfully"
+        }
+      },
+      "details": {
+        "pageTitle": "Repair details"
+      }
+    }
+  },
   "auth": {
-    "pageTitle": "Login page"
+    "pageTitle": "Login",
+    "noPermissionsRedirect": "Error! No sufficient permissions. Redirected.",
+    "loginSuccessful": "Login successful. Hello "
   },
   "id": "Id"
 }

@@ -14,7 +14,8 @@ export const formValidationKeys = {
   isInteger: 'isInteger',
   isDate: 'isDate',
   notInFuture: 'notInFuture',
-  afterOrEqualToStartDate: 'afterOrEqualToStartDate'
+  afterOrEqualToStartDate: 'afterOrEqualToStartDate',
+  wrongPhoneNoOrPassword: 'wrongPhoneNoOrPassword'
 };
 
 export function getValidationErrorKey(error) {
